@@ -94,6 +94,8 @@ export class CategoriesComponent implements OnInit {
 
   generateSlug(name: string): string {
     return name
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
       .toLowerCase()
       .replace(/\s+/g, '-')
       .replace(/[^\w-]/g, '');
@@ -149,9 +151,9 @@ export class CategoriesComponent implements OnInit {
     );
   }
 
-  navigateToCreateCategory() {
-    this.router.navigate(['/cadastrar-categoria']);
-  }
+  // navigateToCreateCategory() {
+  //   this.router.navigate(['/cadastrar-categoria']);
+  // }
 
   deleteCategory(id: number): void {
     if (confirm('Você tem certeza que deseja excluir esta categoria?')) {
