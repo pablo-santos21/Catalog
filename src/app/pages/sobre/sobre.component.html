@@ -1,0 +1,22 @@
+<div class="h-96 text-white text-center grid">
+    <div class="relative w-full h-full overflow-hidden">
+        <!-- Slide container -->
+        <div *ngFor="let event of events; let i = index" class="absolute inset-0 transition-opacity duration-1000 ease-in-out" [ngClass]="{'opacity-0': i !== currentIndex, 'opacity-100': i === currentIndex}">
+            <div class="h-96 text-white text-center grid bg-cover" [ngStyle]="{'background-image': 'url(' + event.image + ')'}">
+                <div class="col-start-1 row-start-1 bg-gray-800 bg-opacity-70 w-full h-full"></div>
+                <div class="col-start-1 row-start-1 mx-auto my-auto">
+                    <h1 class="font-bold text-2xl">{{ event.title }}</h1>
+                    <p>{{ event.description }}</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation buttons -->
+        <button (click)="prevSlide()" class="absolute left-4 top-1/2 transform -translate-y-1/2 p-2 bg-gray-700 rounded-full hover:bg-gray-500">
+            &larr;
+        </button>
+        <button (click)="nextSlide()" class="absolute right-4 top-1/2 transform -translate-y-1/2 p-2 bg-gray-700 rounded-full hover:bg-gray-500">
+            &rarr;
+        </button>
+    </div>
+</div>

@@ -1,0 +1,34 @@
+<div class="mt-8 bg-slate-400 p-8">
+    <form (ngSubmit)="onSubmit()">
+        <div class="grid grid-cols-2 gap-8">
+            <!-- Campo Nome da Categoria -->
+            <div>
+                <label for="name" class="block mb-2 text-sm text-gray-600 dark:text-black font-bold">Nome</label>
+                <input [(ngModel)]="name" type="text" name="name" id="name" placeholder="Digite o nome da categoria" [ngClass]="{'border-red-500': categoryExists}" class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-500 dark:bg-lime-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40" required />
+                <!-- Texto de erro -->
+                <div *ngIf="categoryExists" class="text-red-500 text-sm mt-1">
+                    A categoria já existe!
+                </div>
+            </div>
+
+            <!-- Campo Descrição da Categoria -->
+            <div>
+                <label for="description" class="block mb-2 text-sm text-gray-600 dark:text-black font-bold">Descrição</label>
+                <input [(ngModel)]="description" type="text" name="description" id="description" placeholder="Digite a descrição da categoria" class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-500 dark:bg-lime-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40" required />
+            </div>
+
+            <!-- Campo Slug (Desabilitado) -->
+            <div>
+                <label for="slug" class="block mb-2 text-sm text-gray-600 dark:text-black font-bold">Slug</label>
+                <input [(ngModel)]="slug" type="text" name="slug" id="slug" placeholder="Slug gerado automaticamente" class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-500 dark:bg-lime-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40" disabled />
+            </div>
+        </div>
+
+        <!-- Botão de Cadastro -->
+        <div class="mt-6 max-w-64 m-auto">
+            <button type="submit" class="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-blue-500 rounded-md hover:bg-blue-400 focus:outline-none focus:bg-blue-400 focus:ring focus:ring-blue-300 focus:ring-opacity-50">
+                Cadastrar Categoria
+            </button>
+        </div>
+    </form>
+</div>

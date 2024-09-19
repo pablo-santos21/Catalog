@@ -1,0 +1,132 @@
+<section id="banner" class="flex flex-col justify-center items-center h-screen text-white headerImage bg-cover bg-center mb-8 imagem">
+
+    <div class="container mx-auto px-6 md:px-12 relative z-10 flex items-center py-24 xl:py-40">
+        <div class="">
+            <h1 class="text-5xl font-bold">Bem vindo a nossa marketplace!</h1>
+            <p class="text-2xl">Your source for vegan products <br>and local producers.</p>
+
+            <button class="mt-6 bg-btnPrimary hover:bg-green-700 text-white font-bold py-2 px-4 rounded-xl mx-2">
+                Faça Login
+            </button>
+            <button class="mt-6 bg-btnPrimary hover:bg-green-700 text-white font-bold py-2 px-4 rounded-xl">
+                Encontre Produtos
+            </button>
+        </div>
+        <div class="basis-2/3 w-full">
+
+        </div>
+    </div>
+</section>
+
+<section id="Sobre" class="pb-8 mx-8">
+    <div class="flex flex-row gap-8">
+        <div class="basis-1/3 sobre-bg imagem bg-cover bg-center text-white content-center">
+            <h3 class="text-center text-2xl font-bold">Sobre</h3>
+        </div>
+        <div class="basis-2/3 flex flex-col gap-2 text-lg max-w-[60%]">
+            <p>Bem-vindo ao nosso marketplace, criado especialmente para o público vegano da Serra Gaúcha! Nosso objetivo é conectar você a pequenos produtores e fornecedores locais que compartilham dos mesmos valores: o respeito pelos animais, pela natureza e pela saúde. Sabemos o quanto é importante ter acesso a produtos frescos, éticos e sustentáveis, e é por isso que estamos aqui para facilitar essa conexão.</p>
+
+            <p>Nosso marketplace foi pensado para valorizar o trabalho de pequenos produtores e artesãos da nossa região, ajudando a divulgar seus produtos e impulsionar suas vendas. Aqui, você encontrará uma variedade de opções veganas, desde alimentos orgânicos e sem agrotóxicos, até roupas, cosméticos e outros itens de bem-estar, tudo feito com carinho e responsabilidade.</p>
+
+            <p>Acreditamos que apoiar esses produtores locais não é apenas uma forma de consumir de maneira consciente, mas também de fortalecer nossa comunidade e construir um futuro mais sustentável para todos.</p>
+        </div>
+    </div>
+</section>
+
+<div class="container mx-auto">
+
+    <section id="valores" class="pb-8">
+        <h2 class=" text-center text-2xl font-bold">Valores e Missão</h2>
+        <div class="grid grid-cols-3 bg-green-600 gap-4">
+            <p-card header="Valores" subheader="" class="text-center">
+                <ng-template pTemplate="header">
+                    <img alt="Card" src="../../../assets/coracao.svg" />
+                </ng-template>
+                <p class=" text-start px-3">
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum minima non vero explicabo nobis autem doloremque, labore ut iusto? Molestiae officiis laboriosam aperiam voluptas soluta assumenda delectus, quasi blanditiis reprehenderit.
+                </p>
+
+            </p-card>
+            <p-card header="Missão" subheader="" class="text-center">
+                <ng-template pTemplate="header">
+                    <img alt="Card" src="../../../assets/coracao.svg" />
+                </ng-template>
+                <p class=" text-start px-3">
+                    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Magni quibusdam molestiae nobis. Modi, velit? Sapiente aspernatur magnam, totam, qui, alias ab harum fugiat ipsum iste dolorem omnis unde maiores nam.
+                </p>
+
+            </p-card>
+            <p-card header="Comunidade" subheader="" class="text-center">
+                <ng-template pTemplate="header">
+                    <img alt="Card" src="../../../assets/coracao.svg" />
+                </ng-template>
+                <p class=" text-start px-3">
+                    Lorem, ipsum dolor sit amet consectetur adipisicing elit. Architecto eum explicabo, ipsum ducimus, sit dignissimos id fugit mollitia, neque placeat modi. Voluptate dicta, adipisci exercitationem ducimus quidem ipsam quibusdam voluptatibus!
+                </p>
+
+            </p-card>
+        </div>
+    </section>
+
+    <section id="categorias" class="pb-8">
+        <h2 class=" text-center text-2xl font-bold">Nossas categorias</h2>
+        <p-carousel [value]="category" [numVisible]="6" [numScroll]="1" [circular]="true" autoplayInterval="1500">
+            <ng-template let-category pTemplate="item">
+                <div class="border-1 surface-border border-round m-2 p-3">
+                    <div class="mb-3">
+                        <div class="relative mx-auto">
+                            <img [src]="'../../../assets/' + category.slug + '.png'" [alt]="category.name" class="w-full border-round" />
+                        </div>
+                    </div>
+                    <div class="mb-3 font-medium">
+                        {{ category.name }}
+                    </div>
+                    <div class="mb-3 font-light">
+                        quant
+                    </div>
+                </div>
+            </ng-template>
+        </p-carousel>
+    </section>
+
+    <section id="video" class=" flex flex-col pb-8 gap-4">
+        <h2 class=" text-center text-2xl font-bold">VIDEO INSPIRADOR</h2>
+        <div class="m-auto video-container">
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/_Zel-Eapb9Y" frameborder="0" allowfullscreen="" __idm_id__="14401537"></iframe>
+        </div>
+    </section>
+
+    <section id="Produtos" class="pb-8">
+        <div class="flex items-center justify-between px-4 sm:px-6 lg:px-4">
+            <h2 class="text-2xl font-bold tracking-tight text-gray-900">Produtos em Destaque</h2>
+            <a href="#" class="hidden text-sm font-semibold text-teal-600 hover:text-cyan-500 sm:block">
+                Veja todos
+                <span aria-hidden="true"> &rarr;</span>
+            </a>
+        </div>
+        <p-carousel [value]="category" [numVisible]="5" [numScroll]="1" [circular]="true" autoplayInterval="3000">
+            <ng-template let-category pTemplate="item">
+                <div class="border-1 surface-border border-round m-2 p-3">
+                    <div class="mb-3">
+                        <div class="relative mx-auto">
+                            <img src="../../../assets/teste.svg" [alt]="" class="w-full border-round" />
+                            <p-tag [value]="" [severity]="" class="absolute" [ngStyle]="{ 'left.px': 5, 'top.px': 5 }" />
+                        </div>
+                    </div>
+                    <div class="mb-3 font-medium">
+                        produtos
+                    </div>
+                    <div class="flex justify-content-between align-items-center">
+                        <div class="mt-0 font-semibold text-xl">
+                            preço
+                        </div>
+                        <span>
+                            <p-button icon="pi pi-heart" severity="secondary" [outlined]="true" />
+                            <p-button icon="pi pi-shopping-cart" styleClass="ml-2" />
+                        </span>
+                    </div>
+                </div>
+            </ng-template>
+        </p-carousel>
+    </section>
+</div>
