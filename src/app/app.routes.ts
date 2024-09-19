@@ -26,8 +26,6 @@ import { EventTypeComponent } from './painel/event-type/event-type.component';
 import { ProductsComponent } from './painel/products/products.component';
 import { CategoriesComponent } from './painel/categories/categories.component';
 import { CadastrarEventosComponent } from './painel/cadastrar-eventos/cadastrar-eventos.component';
-import { CadastrarComponent } from './painel/categories/cadastrar/cadastrar.component';
-import { EditarComponent } from './painel/categories/editar/editar.component';
 
 export const routes: Routes = [
   {
@@ -107,16 +105,6 @@ export const routes: Routes = [
         path: 'categorias',
         component: CategoriesComponent,
         title: 'Cadastrar Categorias - Tesouros da Terra',
-      },
-      {
-        path: 'cadastrar-categoria',
-        component: CadastrarComponent,
-        title: 'Cadastrar Produtos - Tesouros da Terra',
-      },
-      {
-        path: 'editar-categoria',
-        component: EditarComponent,
-        title: 'Cadastrar Produtos - Tesouros da Terra',
       },
     ],
   },

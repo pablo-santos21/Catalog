@@ -1,5 +1,8 @@
-<p-toast />
-<p-button type="button" (onClick)="showSuccess()" label="Success" severity="success" />
+<p-toast [breakpoints]="{ 
+    '767px': { width: '100%', right: '0', left: '20' },
+ }" />
+
+
 
 <!-- Lista de categorias -->
 <div class="bg-gray-50 min-h-screen">
@@ -18,28 +21,29 @@
                 </div>
 
 
-                <table class="text-left w-full">
+                <table class="text-left w-full border-collapse block md:table">
 
-                    <thead class="flex justify-between bg-gradient-to-tr from-indigo-600 to-purple-600 rounded-md px-4 text-white font-bold text-md">
-                        <tr class="flex w-full">
-                            <th class="p-4 w-1/12">Id</th>
-                            <th class="p-4 w-2/12">Name</th>
-                            <th class="p-4 w-4/12">Descrição</th>
-                            <th class="p-4 w-2/12">Slug</th>
-                            <th class="p-4 w-3/12">Opções</th>
+                    <thead class="justify-between bg-gradient-to-tr from-indigo-600 to-purple-600 rounded-lg px-4 text-white font-bold text-md block md:table-header-group">
+                        <tr class="border border-grey-500 md:border-none block md:table-row absolute -top-full md:top-auto -left-full md:left-auto  md:relative ">
+                            <th class="p-4 w-1/12 font-bold md:border md:border-grey-500 text-left block md:table-cell">Id</th>
+                            <th class="p-4 w-2/12 font-bold md:border md:border-grey-500 text-left block md:table-cell">Name</th>
+                            <th class="p-4 w-4/12 font-bold md:border md:border-grey-500 text-left block md:table-cell">Descrição</th>
+                            <th class="p-4 font-bold md:border md:border-grey-500 text-left block md:table-cell">Slug</th>
+                            <th class="p-4 font-bold md:border md:border-grey-500 text-left block md:table-cell">Opções</th>
                         </tr>
                     </thead>
                     <div class="flex m-auto">
                         <p-progressSpinner *ngIf="isLoading" ariaLabel="loading" class="m-auto" />
                     </div>
-                    <tbody *ngFor="let category of categories" class="flex border-t text-sm font-normal  px-4">
+                    <tbody *ngFor="let category of categories" class=" border-t text-sm font-normal px-4 block md:table-row-group">
 
-                        <tr class="flex w-full">
-                            <td class="p-4 w-1/12">#{{ category.id }}</td>
-                            <td class="p-4 w-2/12">{{ category.name }}</td>
-                            <td class="p-4 w-4/12">{{ category.description }}</td>
-                            <td class="p-4 w-2/12">{{ category.slug }}</td>
-                            <td class="p-4 w-3/12">
+                        <tr class="w-full border border-grey-500 md:border-none block md:table-row">
+                            <td class="p-4  md:border md:border-grey-500 text-left block md:table-cell"><span class="inline-block w-1/3 md:hidden font-bold">Id</span>#{{ category.id }}</td>
+                            <td class="p-4  md:border md:border-grey-500 text-left block md:table-cell"><span class="inline-block w-1/3 md:hidden font-bold">Nome</span>{{ category.name }}</td>
+                            <td class="p-4  md:border md:border-grey-500 text-left block md:table-cell"><span class="inline-block w-1/3 md:hidden font-bold">Descrição</span>{{ category.description }}</td>
+                            <td class="p-4  md:border md:border-grey-500 text-left block md:table-cell"><span class="inline-block w-1/3 md:hidden font-bold">Slug</span>{{ category.slug }}</td>
+                            <td class="p-4  md:border md:border-grey-500 text-left block md:table-cell">
+                                <span class="inline-block w-1/3 md:hidden font-bold">opções</span>
                                 <button (click)="editCategoryModal(category)" type="button" class="mr-3 text-sm bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">Editar</button>
                                 <button (click)="deleteCategory(category.id)" (onClick)="showError()" type="button" class="text-sm bg-red-500 hover:bg-red-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">Deletar</button>
                             </td>
