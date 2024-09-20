@@ -1,1 +1,104 @@
-<p>event-type works!</p>
+<p-toast [breakpoints]="{ 
+    '767px': { width: '100%', right: '0', left: '20' },
+ }" />
+
+
+
+<!-- Lista de categorias -->
+<div class="bg-gray-50 min-h-screen">
+    <div class="p-4">
+        <div class="bg-white p-4 rounded-md">
+            <div>
+                <div class="flex flex-row justify-between py-2">
+                    <h2 class=" mx-0 my-auto text-xl font-bold text-gray-700">Categorias</h2>
+
+                    <button (click)="createTypeEventModal()" type="button" class="flex text-sm bg-green-700 hover:bg-green-900 text-white px-2 rounded focus:outline-none focus:shadow-outline py-3 gap-1">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" class="w-5 h-5 text-inherit flex">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                        </svg>
+                        Cadastrar Categoria
+                    </button>
+                </div>
+
+
+                <table class="text-left w-full border-collapse block md:table">
+
+                    <thead class="justify-between bg-gradient-to-tr from-indigo-600 to-purple-600 rounded-lg px-4 text-white font-bold text-md block md:table-header-group">
+                        <tr class="border border-grey-500 md:border-none block md:table-row absolute -top-full md:top-auto -left-full md:left-auto  md:relative ">
+                            <th class="p-4 font-bold md:border md:border-grey-500 text-left block md:table-cell">Id</th>
+                            <th class="p-4 font-bold md:border md:border-grey-500 text-left block md:table-cell">Name</th>
+                            <th class="p-4 font-bold md:border md:border-grey-500 text-left block md:table-cell">Slug</th>
+                            <th class="p-4 font-bold md:border md:border-grey-500 text-left block md:table-cell">Opções</th>
+                        </tr>
+                    </thead>
+                    <div class="flex m-auto">
+                        <p-progressSpinner *ngIf="isLoading" ariaLabel="loading" class="m-auto" />
+                    </div>
+                    <tbody *ngFor="let typeEvent of typeEvents" class=" border-t text-sm font-normal px-4 block md:table-row-group">
+
+                        <tr class="w-full border border-grey-500 md:border-none block md:table-row">
+                            <td class="p-4  md:border md:border-grey-500 text-left block md:table-cell"><span class="inline-block w-1/3 md:hidden font-bold">Id</span>#{{ typeEvent.id }}</td>
+                            <td class="p-4  md:border md:border-grey-500 text-left block md:table-cell"><span class="inline-block w-1/3 md:hidden font-bold">Nome</span>{{ typeEvent.name }}</td>
+                            <td class="p-4  md:border md:border-grey-500 text-left block md:table-cell"><span class="inline-block w-1/3 md:hidden font-bold">Slug</span>{{ typeEvent.slug }}</td>
+                            <td class="p-4  md:border md:border-grey-500 text-left block md:table-cell">
+                                <span class="inline-block w-1/3 md:hidden font-bold">opções</span>
+                                <button (click)="editTypeEventModal(typeEvent)" type="button" class="mr-3 text-sm bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">Editar</button>
+                                <button (click)="deleteTypeEvent(typeEvent.id)" (onClick)="showError()" type="button" class="text-sm bg-red-500 hover:bg-red-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">Deletar</button>
+                            </td>
+                        </tr>
+
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal cadastrar categoria-->
+    <div *ngIf="showCreateModal" class="fixed z-50 inset-0 bg-green-950 bg-opacity-90 overflow-y-auto">
+        <div class="flex items-center justify-center min-h-screen">
+            <div class="bg-white p-6 rounded-lg shadow-lg max-w-md w-full">
+                <h2 class="text-xl font-bold mb-4">Cadastrar Categoria</h2>
+
+                <form (ngSubmit)="onSubmit()">
+                    <div class="mb-4">
+                        <label for="name" class="block text-sm font-medium text-gray-700">Nome</label>
+                        <input [(ngModel)]="name" name="name" type="text" id="name" class="mt-1 block w-full px-3 py-2 border rounded-md shadow-sm sm:text-sm" [ngClass]="{'border-red-500': typeEventExists}" required />
+                        <div *ngIf="typeEventExists" class="text-red-500 text-sm mt-2">{{ typeEventErrorMessage }}</div>
+                        <div *ngIf="!name || typeEventErrorMessage === 'O campo nome é obrigatório.'" class="text-red-500 text-sm mt-2">{{ typeEventErrorMessage }}</div>
+                    </div>
+
+                    <div class="flex justify-end">
+                        <button type="button" class="px-4 py-2 bg-gray-500 text-white rounded-md mr-2" (click)="closeModal()">Cancelar</button>
+                        <button (onClick)="showSuccess()" type="submit" class="px-4 py-2 bg-blue-500 text-white rounded-md">Salvar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- End modal -->
+
+    <!-- Modal atualizar categoria-->
+    <div *ngIf="showEditModal" class="fixed z-50 inset-0 bg-green-950 bg-opacity-90 overflow-y-auto">
+        <div class="flex items-center justify-center min-h-screen">
+            <div class="bg-white p-6 rounded-lg shadow-lg max-w-md w-full">
+                <h2 class="text-xl font-bold mb-4">Editar Categoria</h2>
+
+                <form (ngSubmit)="onEditSubmit()">
+                    <div class="mb-4">
+                        <label for="name" class="block text-sm font-medium text-gray-700">Nome</label>
+                        <input [(ngModel)]="editTypeEvent.name" name="name" type="text" id="name" class="mt-1 block w-full px-3 py-2 border rounded-md shadow-sm sm:text-sm" [ngClass]="{'border-red-500': typeEventExists}" required />
+                        <div *ngIf="typeEventExists" class="text-red-500 text-sm mt-2">{{ typeEventErrorMessage }}</div>
+                    </div>
+
+                    <div class="flex justify-end">
+                        <button type="button" class="px-4 py-2 bg-gray-500 text-white rounded-md mr-2" (click)="closeModal()">Cancelar</button>
+                        <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded-md">Salvar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- End model -->
+
+</div>

@@ -1,49 +1,51 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Product } from '../../models/product';
+import { TypeEvent } from '../../models/TypeEvent';
 
 @Injectable({
   providedIn: 'root',
 })
-export class ProductService {
-  private apiUrl = 'http://localhost:5062/v1/products';
+export class TypeEventService {
+  private apiUrl = 'http://localhost:5062/v1/TypesEvent';
 
   constructor(private client: HttpClient) {}
 
-  getProduct(): Observable<Product[]> {
-    return this.client.get<Product[]>(`${this.apiUrl}/test`);
+  getTypeEvent(): Observable<TypeEvent[]> {
+    return this.client.get<TypeEvent[]>(`${this.apiUrl}/test`);
   }
 
   // Método para obter uma categoria por ID
-  getProductById(id: number): Observable<Product> {
-    return this.client.get<Product>(`${this.apiUrl}/${id}`);
+  getTypeEventById(id: number): Observable<TypeEvent> {
+    return this.client.get<TypeEvent>(`${this.apiUrl}/${id}`);
   }
 
   // Método para adicionar uma nova categoria
-  addProduct(product: Product): Observable<Product> {
+  addTypeEvent(typeEvent: TypeEvent): Observable<TypeEvent> {
     const token = localStorage.getItem('Bearer'); // Obtém o token JWT do localStorage
     const headers = new HttpHeaders({
       Authorization: `${token}`, // Adiciona o token no cabeçalho Authorization
     });
 
-    return this.client.post<Product>(this.apiUrl, product, {
-      headers,
-    });
+    return this.client.post<TypeEvent>(this.apiUrl, typeEvent, { headers });
   }
 
-  updateProduct(product: Product): Observable<Product> {
+  updateTypeEvent(typeEvent: TypeEvent): Observable<TypeEvent> {
     const token = localStorage.getItem('Bearer');
     const headers = new HttpHeaders({
       Authorization: `${token}`,
     });
-    return this.client.put<Product>(`${this.apiUrl}/${product.id}`, product, {
-      headers,
-    });
+    return this.client.put<TypeEvent>(
+      `${this.apiUrl}/${typeEvent.id}`,
+      typeEvent,
+      {
+        headers,
+      }
+    );
   }
 
   // Método para excluir uma categoria
-  deleteProduct(id: number): Observable<string> {
+  deleteTypeEvent(id: number): Observable<string> {
     const token = localStorage.getItem('Bearer'); // Obtém o token JWT do localStorage
     const headers = new HttpHeaders({
       Authorization: `${token}`, // Adiciona o token no cabeçalho Authorization

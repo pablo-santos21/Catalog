@@ -1,49 +1,57 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Product } from '../../models/product';
+import { ScheduledEvent } from '../../models/scheduled-event';
 
 @Injectable({
   providedIn: 'root',
 })
-export class ProductService {
-  private apiUrl = 'http://localhost:5062/v1/products';
+export class ScheduledEventService {
+  private apiUrl = 'http://localhost:5062/v1/events';
 
   constructor(private client: HttpClient) {}
 
-  getProduct(): Observable<Product[]> {
-    return this.client.get<Product[]>(`${this.apiUrl}/test`);
+  getScheduledEvent(): Observable<ScheduledEvent[]> {
+    return this.client.get<ScheduledEvent[]>(`${this.apiUrl}/test`);
   }
 
   // Método para obter uma categoria por ID
-  getProductById(id: number): Observable<Product> {
-    return this.client.get<Product>(`${this.apiUrl}/${id}`);
+  getScheduledEventById(id: number): Observable<ScheduledEvent> {
+    return this.client.get<ScheduledEvent>(`${this.apiUrl}/${id}`);
   }
 
   // Método para adicionar uma nova categoria
-  addProduct(product: Product): Observable<Product> {
+  addScheduledEvent(
+    scheduledEvent: ScheduledEvent
+  ): Observable<ScheduledEvent> {
     const token = localStorage.getItem('Bearer'); // Obtém o token JWT do localStorage
     const headers = new HttpHeaders({
       Authorization: `${token}`, // Adiciona o token no cabeçalho Authorization
     });
 
-    return this.client.post<Product>(this.apiUrl, product, {
+    return this.client.post<ScheduledEvent>(this.apiUrl, scheduledEvent, {
       headers,
     });
   }
 
-  updateProduct(product: Product): Observable<Product> {
+  updateScheduledEvent(
+    scheduledEvent: ScheduledEvent
+  ): Observable<ScheduledEvent> {
     const token = localStorage.getItem('Bearer');
     const headers = new HttpHeaders({
       Authorization: `${token}`,
     });
-    return this.client.put<Product>(`${this.apiUrl}/${product.id}`, product, {
-      headers,
-    });
+    return this.client.put<ScheduledEvent>(
+      `${this.apiUrl}/${scheduledEvent.id}`,
+      scheduledEvent,
+      {
+        headers,
+      }
+    );
   }
 
   // Método para excluir uma categoria
-  deleteProduct(id: number): Observable<string> {
+  deleteScheduledEvent(id: number): Observable<string> {
     const token = localStorage.getItem('Bearer'); // Obtém o token JWT do localStorage
     const headers = new HttpHeaders({
       Authorization: `${token}`, // Adiciona o token no cabeçalho Authorization
