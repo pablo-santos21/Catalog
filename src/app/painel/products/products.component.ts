@@ -72,7 +72,7 @@ export class ProductsComponent {
       slug: '',
       price: 0,
       stock: 0,
-      image: [],
+      image: ['imagem.jpg'],
       isActive: true,
       createdAt: new Date(),
       updatedAt: new Date(),
@@ -85,7 +85,7 @@ export class ProductsComponent {
     this.messageService.add({
       severity: 'success',
       summary: 'Sucesso',
-      detail: 'Categoria salva com sucesso!',
+      detail: 'Produto cadastrado com sucesso!',
     });
   }
 
@@ -93,7 +93,7 @@ export class ProductsComponent {
     this.messageService.add({
       severity: 'error',
       summary: 'Deletado',
-      detail: 'Categoria deletada!',
+      detail: 'Produto deletado!',
     });
   }
 
@@ -160,9 +160,13 @@ export class ProductsComponent {
     );
   }
 
-  // navigateToCreateCategory() {
-  //   this.router.navigate(['/cadastrar-categoria']);
-  // }
+  navigateToCreateProduto() {
+    this.router.navigate(['/cadastrar-produto']);
+  }
+
+  navigateToUpdateProduto() {
+    this.router.navigate(['/editar-produto']);
+  }
 
   deleteProduct(id: number): void {
     if (confirm('Você tem certeza que deseja excluir esta categoria?')) {
