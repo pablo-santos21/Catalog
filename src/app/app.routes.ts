@@ -21,11 +21,14 @@ import { RegisterComponent } from './pages/register/register.component';
 //Dashboard
 import { DashboardComponent } from './painel/dashboard/dashboard.component';
 import { PerfilComponent } from './painel/perfil/perfil.component';
-import { TablesComponent } from './painel/tables/tables.component';
 import { EventTypeComponent } from './painel/event-type/event-type.component';
 import { ProductsComponent } from './painel/products/products.component';
 import { CategoriesComponent } from './painel/categories/categories.component';
-import { CadastrarEventosComponent } from './painel/cadastrar-eventos/cadastrar-eventos.component';
+import { EventosComponent } from './painel/eventos/eventos.component';
+import { CadastrarProdutoComponent } from './painel/products/cadastrar-produto/cadastrar-produto.component';
+import { FormulariosComponent } from './pages/formularios/formularios.component';
+import { EditarProdutoComponent } from './painel/products/editar-produto/editar-produto.component';
+import { CadastrarEventoComponent } from './painel/eventos/cadastrar-evento/cadastrar-evento.component';
 
 export const routes: Routes = [
   {
@@ -71,6 +74,32 @@ export const routes: Routes = [
       },
     ],
   },
+  // {
+  //   path: '',
+  //   component: DashboardLayoutComponent,
+  //   children: [
+  //     {
+  //       path: 'formulario',
+  //       component: FormulariosComponent,
+  //       title: 'formulário - Tesouros da Terra',
+  //     },
+  //     {
+  //       path: 'cad-produto',
+  //       component: ProductsComponent,
+  //       title: 'produtos',
+  //     },
+  //     {
+  //       path: 'cadastrar-produto',
+  //       component: CadastrarProdutoComponent,
+  //       title: 'formulario',
+  //     },
+  //     {
+  //       path: 'editar-produto',
+  //       component: EditarProdutoComponent,
+  //       title: 'formulario',
+  //     },
+  //   ],
+  // },
   {
     path: '',
     component: DashboardLayoutComponent,
@@ -87,8 +116,13 @@ export const routes: Routes = [
         title: 'Meu Perfil - Tesouros da Terra',
       },
       {
-        path: 'cadastrar-eventos',
-        component: CadastrarEventosComponent,
+        path: 'listar-eventos',
+        component: EventosComponent,
+        title: 'Cadastrar Eventos - Tesouros da Terra',
+      },
+      {
+        path: 'cadastrar-evento',
+        component: CadastrarEventoComponent,
         title: 'Cadastrar Eventos - Tesouros da Terra',
       },
       {
@@ -97,8 +131,13 @@ export const routes: Routes = [
         title: 'Cadastrar tipos de eventos - Tesouros da Terra',
       },
       {
-        path: 'cadastrar-produtos',
+        path: 'listar-produtos',
         component: ProductsComponent,
+        title: 'Listar Produtos - Tesouros da Terra',
+      },
+      {
+        path: 'cadastrar-produto',
+        component: CadastrarProdutoComponent,
         title: 'Cadastrar Produtos - Tesouros da Terra',
       },
       {
