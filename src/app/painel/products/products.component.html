@@ -12,7 +12,7 @@
                 <div class="flex flex-row justify-between py-2">
                     <h2 class=" mx-0 my-auto text-xl font-bold text-gray-700">Categorias</h2>
 
-                    <button (click)="createProductModal()" type="button" class="flex text-sm bg-green-700 hover:bg-green-900 text-white px-2 rounded focus:outline-none focus:shadow-outline py-3 gap-1">
+                    <button (click)="navigateToCreateProduto()" type="button" class="flex text-sm bg-green-700 hover:bg-green-900 text-white px-2 rounded focus:outline-none focus:shadow-outline py-3 gap-1">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" class="w-5 h-5 text-inherit flex">
                             <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                         </svg>
@@ -38,7 +38,7 @@
                     <div class="flex m-auto">
                         <p-progressSpinner *ngIf="isLoading" ariaLabel="loading" class="m-auto" />
                     </div>
-                    <tbody *ngFor="let product of products" class=" border-t text-sm font-normal px-4 block md:table-row-group">
+                    <tbody *ngFor="let product of products" class=" border-t text-sm font-normal px-4 block md:table-row-group overflow-y-scroll">
 
                         <tr class="w-full border border-grey-500 md:border-none block md:table-row">
                             <td class="p-4  md:border md:border-grey-500 text-left block md:table-cell"><span class="inline-block w-1/3 md:hidden font-bold">id</span>#{{ product.id }}</td>
@@ -63,6 +63,57 @@
         </div>
     </div>
 
+    <!-- Modal para Atualizar Produto -->
+    <div *ngIf="showEditModal" class="fixed z-50 inset-0 bg-gray-900 bg-opacity-90 overflow-y-auto">
+        <div class="flex items-center justify-center min-h-screen">
+            <div class="bg-white p-6 rounded-lg shadow-lg max-w-md w-full">
+                <h2 class="text-xl font-bold mb-4">Editar Produto</h2>
+
+                <form [formGroup]="editForm" (ngSubmit)="onEditSubmit()">
+                    <div class="mb-4">
+                        <label for="name" class="block text-sm font-medium text-gray-700">Nome</label>
+                        <input formControlName="name" id="name" type="text" class="mt-1 block w-full px-3 py-2 border rounded-md shadow-sm sm:text-sm" required />
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="description" class="block text-sm font-medium text-gray-700">Descrição</label>
+                        <textarea formControlName="description" id="description" rows="5" class="block w-full px-3 py-2 text-gray-700 border rounded-md"></textarea>
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="categoryId" class="block text-sm font-medium text-gray-700">Categoria</label>
+                        <p-dropdown formControlName="categoryId" [options]="categories" optionValue="id" optionLabel="name" placeholder="Selecione a categoria" class="w-full" id="categoriaId"></p-dropdown>
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="price" class="block text-sm font-medium text-gray-700">Preço</label>
+                        <p-inputNumber formControlName="price" mode="currency" currency="BRL" locale="pt-BR" inputId="currency-br" class="w-full"></p-inputNumber>
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="stock" class="block text-sm font-medium text-gray-700">Estoque</label>
+                        <input formControlName="stock" id="stock" type="number" class="block w-full px-3 py-2 text-gray-700 border rounded-md" required />
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="isActive" class="block text-sm font-medium text-gray-700">Está ativo?</label>
+                        <p-inputSwitch formControlName="isActive"></p-inputSwitch>
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="image" class="block text-sm font-medium text-gray-700">Imagem</label>
+                        <p-fileUpload mode="basic" name="image" formControlName="image" [auto]="true" accept=".jpg,.jpeg,.png,.gif" maxFileSize="5000000" (onUpload)="onBasicUploadAuto($event)" chooseLabel="Escolher Imagem"></p-fileUpload>
+                    </div>
+
+                    <div class="flex justify-end">
+                        <button type="button" class="px-4 py-2 bg-gray-500 text-white rounded-md mr-2" (click)="closeModal()">Cancelar</button>
+                        <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded-md" [disabled]="editForm.invalid">Salvar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- Fim do Modal -->
 
 
 </div>

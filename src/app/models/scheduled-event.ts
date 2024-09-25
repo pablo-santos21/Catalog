@@ -1,4 +1,4 @@
-import { Estates } from './Estates';
+import { States } from './Estates';
 export type EventLocation = 'Presencial' | 'Online';
 
 export interface ScheduledEvent {
@@ -7,8 +7,9 @@ export interface ScheduledEvent {
   description?: string;
   local: EventLocation;
   city?: string;
-  state: Estates;
+  state: States;
   neighborhood?: string;
+  image?: string;
   createdAt: Date;
   updateAt: Date;
   eventDate?: Date;

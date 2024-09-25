@@ -24,7 +24,7 @@ export class TypeEventService {
   addTypeEvent(typeEvent: TypeEvent): Observable<TypeEvent> {
     const token = localStorage.getItem('Bearer'); // Obtém o token JWT do localStorage
     const headers = new HttpHeaders({
-      Authorization: `${token}`, // Adiciona o token no cabeçalho Authorization
+      Authorization: `Bearer ${token}`, // Adiciona o token no cabeçalho Authorization
     });
 
     return this.client.post<TypeEvent>(this.apiUrl, typeEvent, { headers });
@@ -33,7 +33,7 @@ export class TypeEventService {
   updateTypeEvent(typeEvent: TypeEvent): Observable<TypeEvent> {
     const token = localStorage.getItem('Bearer');
     const headers = new HttpHeaders({
-      Authorization: `${token}`,
+      Authorization: `Bearer ${token}`,
     });
     return this.client.put<TypeEvent>(
       `${this.apiUrl}/${typeEvent.id}`,
@@ -48,7 +48,7 @@ export class TypeEventService {
   deleteTypeEvent(id: number): Observable<string> {
     const token = localStorage.getItem('Bearer'); // Obtém o token JWT do localStorage
     const headers = new HttpHeaders({
-      Authorization: `${token}`, // Adiciona o token no cabeçalho Authorization
+      Authorization: `Bearer ${token}`, // Adiciona o token no cabeçalho Authorization
     });
     return this.client.delete<string>(`${this.apiUrl}/${id}`, { headers });
   }

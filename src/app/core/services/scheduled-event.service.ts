@@ -26,7 +26,7 @@ export class ScheduledEventService {
   ): Observable<ScheduledEvent> {
     const token = localStorage.getItem('Bearer'); // Obtém o token JWT do localStorage
     const headers = new HttpHeaders({
-      Authorization: `${token}`, // Adiciona o token no cabeçalho Authorization
+      Authorization: `Bearer ${token}`, // Adiciona o token no cabeçalho Authorization
     });
 
     return this.client.post<ScheduledEvent>(this.apiUrl, scheduledEvent, {
@@ -39,7 +39,7 @@ export class ScheduledEventService {
   ): Observable<ScheduledEvent> {
     const token = localStorage.getItem('Bearer');
     const headers = new HttpHeaders({
-      Authorization: `${token}`,
+      Authorization: `Bearer ${token}`,
     });
     return this.client.put<ScheduledEvent>(
       `${this.apiUrl}/${scheduledEvent.id}`,
@@ -54,7 +54,7 @@ export class ScheduledEventService {
   deleteScheduledEvent(id: number): Observable<string> {
     const token = localStorage.getItem('Bearer'); // Obtém o token JWT do localStorage
     const headers = new HttpHeaders({
-      Authorization: `${token}`, // Adiciona o token no cabeçalho Authorization
+      Authorization: `Bearer ${token}`, // Adiciona o token no cabeçalho Authorization
     });
     return this.client.delete<string>(`${this.apiUrl}/${id}`, { headers });
   }

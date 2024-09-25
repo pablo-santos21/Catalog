@@ -26,7 +26,7 @@ export class CategoryService {
   addCategory(category: Category): Observable<Category> {
     const token = localStorage.getItem('Bearer'); // Obtém o token JWT do localStorage
     const headers = new HttpHeaders({
-      Authorization: `${token}`, // Adiciona o token no cabeçalho Authorization
+      Authorization: `Bearer ${token}`, // Adiciona o token no cabeçalho Authorization
     });
 
     return this.client.post<Category>(this.apiUrl, category, { headers });
@@ -35,7 +35,7 @@ export class CategoryService {
   updateCategory(category: Category): Observable<Category> {
     const token = localStorage.getItem('Bearer');
     const headers = new HttpHeaders({
-      Authorization: `${token}`,
+      Authorization: `Bearer ${token}`,
     });
     return this.client.put<Category>(
       `${this.apiUrl}/${category.id}`,
@@ -50,7 +50,7 @@ export class CategoryService {
   deleteCategory(id: number): Observable<string> {
     const token = localStorage.getItem('Bearer'); // Obtém o token JWT do localStorage
     const headers = new HttpHeaders({
-      Authorization: `${token}`, // Adiciona o token no cabeçalho Authorization
+      Authorization: `Bearer ${token}`, // Adiciona o token no cabeçalho Authorization
     });
     return this.client.delete<string>(`${this.apiUrl}/${id}`, { headers });
   }

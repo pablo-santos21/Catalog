@@ -24,7 +24,7 @@ export class ProductService {
   addProduct(product: Product): Observable<Product> {
     const token = localStorage.getItem('Bearer'); // Obtém o token JWT do localStorage
     const headers = new HttpHeaders({
-      Authorization: `${token}`, // Adiciona o token no cabeçalho Authorization
+      Authorization: `Bearer ${token}`, // Adiciona o token no cabeçalho Authorization
     });
 
     return this.client.post<Product>(this.apiUrl, product, {
@@ -35,7 +35,7 @@ export class ProductService {
   updateProduct(product: Product): Observable<Product> {
     const token = localStorage.getItem('Bearer');
     const headers = new HttpHeaders({
-      Authorization: `${token}`,
+      Authorization: `Bearer ${token}`,
     });
     return this.client.put<Product>(`${this.apiUrl}/${product.id}`, product, {
       headers,
@@ -46,7 +46,7 @@ export class ProductService {
   deleteProduct(id: number): Observable<string> {
     const token = localStorage.getItem('Bearer'); // Obtém o token JWT do localStorage
     const headers = new HttpHeaders({
-      Authorization: `${token}`, // Adiciona o token no cabeçalho Authorization
+      Authorization: `Bearer ${token}`, // Adiciona o token no cabeçalho Authorization
     });
     return this.client.delete<string>(`${this.apiUrl}/${id}`, { headers });
   }

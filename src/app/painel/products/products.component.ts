@@ -1,6 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import {
+  FormsModule,
+  ReactiveFormsModule,
+  FormBuilder,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { MessageService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { FloatLabelModule } from 'primeng/floatlabel';
@@ -11,6 +17,14 @@ import { ToastModule } from 'primeng/toast';
 import { Product } from '../../models/product';
 import { ProductService } from '../../core/services/product.service';
 import { Router } from '@angular/router';
+import { Category } from '../../models/category';
+import { CategoryService } from '../../core/services/category.service';
+
+import { InputTextareaModule } from 'primeng/inputtextarea';
+import { InputSwitchModule } from 'primeng/inputswitch';
+import { DropdownModule } from 'primeng/dropdown';
+import { InputNumberModule } from 'primeng/inputnumber';
+import { FileUploadModule } from 'primeng/fileupload';
 
 @Component({
   selector: 'app-products',
@@ -18,51 +32,70 @@ import { Router } from '@angular/router';
   imports: [
     InputTextModule,
     FormsModule,
+    ReactiveFormsModule,
     FloatLabelModule,
     CommonModule,
     ProgressSpinnerModule,
     ToastModule,
     ButtonModule,
     RippleModule,
+    InputTextareaModule,
+    InputSwitchModule,
+    DropdownModule,
+    InputNumberModule,
+    FileUploadModule,
   ],
   providers: [MessageService],
   templateUrl: './products.component.html',
-  styleUrl: './products.component.css',
+  styleUrls: ['./products.component.css'],
 })
-export class ProductsComponent {
+export class ProductsComponent implements OnInit {
   products: Product[] = [];
+
+  editForm!: FormGroup;
+  categories: Category[] = []; // Populated categories from the API
 
   editProduct: Product = this.initializeProduct();
   newProduct: Product = this.initializeProduct();
 
   showEditModal: boolean = false;
-  showCreateModal: boolean = false;
   isLoading: boolean = false;
-
   productExists: boolean = false;
   productErrorMessage: string = '';
 
-  // editProduct: Product = {
-  //   id: 0,
-  //   title: '',
-  //   description: '',
-  //   local: 'Presencial',
-  //   city: '',
-  //   state: Estates.RS,
-  //   neighborhood: '',
-  //   createdAt: new Date(),
-  //   updateAt: new Date(),
-  //   eventDate: undefined,
-  //   occurred: false,
-  //   slug: '',
-  //   typeEventId: 0,
-  // };
-
   constructor(
     private productService: ProductService,
+    private categoryService: CategoryService,
     private router: Router,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private fb: FormBuilder
   ) {}
+
+  ngOnInit(): void {
+    this.initializeForm();
+    this.loadProduct();
+    this.loadCategories();
+  }
+
+  navigateToCreateProduto() {
+    this.router.navigate(['/cadastrar-produto']);
+  }
+
+  // navigateToUpdateProduto() {
+  //   this.router.navigate(['/editar-produto']);
+  // }
+
+  initializeForm(): void {
+    this.editForm = this.fb.group({
+      name: ['', Validators.required],
+      description: ['', Validators.required],
+      categoryId: ['', Validators.required],
+      price: [0, [Validators.required, Validators.min(0)]],
+      stock: [0, [Validators.required, Validators.min(0)]],
+      isActive: [true],
+      image: [''],
+    });
+  }
 
   initializeProduct(): Product {
     return {
@@ -72,7 +105,7 @@ export class ProductsComponent {
       slug: '',
       price: 0,
       stock: 0,
-      image: [],
+      image: ['imagem.jpg'],
       isActive: true,
       createdAt: new Date(),
       updatedAt: new Date(),
@@ -81,37 +114,29 @@ export class ProductsComponent {
     };
   }
 
-  showSuccess() {
-    this.messageService.add({
-      severity: 'success',
-      summary: 'Sucesso',
-      detail: 'Categoria salva com sucesso!',
-    });
-  }
-
-  showError() {
-    this.messageService.add({
-      severity: 'error',
-      summary: 'Deletado',
-      detail: 'Categoria deletada!',
-    });
-  }
-
-  ngOnInit(): void {
-    this.loadProduct();
-  }
-
   loadProduct(): void {
     this.isLoading = true;
     this.productService.getProduct().subscribe(
       (response) => {
-        this.products = response; // Armazena as categorias retornadas na variável
+        this.products = response;
         this.isLoading = false;
-        console.log('Categorias carregadas com sucesso!', response);
+        console.log('Produtos carregados com sucesso!', response);
       },
       (error) => {
-        console.error('Erro ao carregar as categorias:', error);
+        console.error('Erro ao carregar produtos:', error);
         this.isLoading = false;
+      }
+    );
+  }
+
+  loadCategories(): void {
+    this.categoryService.getCategory().subscribe(
+      (response: Category[]) => {
+        this.categories = response;
+        console.log('Categorias carregadas:', this.categories);
+      },
+      (error) => {
+        console.error('Erro ao carregar categorias:', error);
       }
     );
   }
@@ -125,58 +150,23 @@ export class ProductsComponent {
       .replace(/[^\w-]/g, '');
   }
 
-  onSubmit() {
-    // Verifica se o título está vazio
-    if (!this.newProduct.name) {
-      console.error('Preencha todos os campos antes de enviar.');
-      return;
+  onBasicUploadAuto(event: any): void {
+    if (event.files && event.files.length > 0) {
+      const uploadedFile = event.files[0];
+      this.newProduct.image = uploadedFile.name; // Salva o nome do arquivo ou o link
+      console.log('Arquivo carregado com sucesso:', uploadedFile);
     }
-
-    // Gera o slug com base no título
-    this.newProduct.slug = this.generateSlug(this.newProduct.name);
-
-    // Chama o serviço para adicionar o novo evento agendado
-    this.productService.addProduct(this.newProduct).subscribe(
-      (response) => {
-        console.log('Evento agendado com sucesso!', response);
-        this.closeModal(); // Fecha o modal após o sucesso
-        this.newProduct = this.initializeProduct(); // Reseta o formulário
-        this.loadProduct(); // Atualiza a lista de eventos
-        this.showSuccess(); // Exibe mensagem de sucesso
-      },
-      (error) => {
-        console.error('Erro ao agendar o evento:', error);
-
-        if (error.status === 409) {
-          this.productExists = true;
-          this.productErrorMessage = 'Evento já existe.';
-
-          const nameInput = document.getElementById('name');
-          if (nameInput) {
-            nameInput.focus();
-          }
-        }
-      }
-    );
   }
 
-  // navigateToCreateCategory() {
-  //   this.router.navigate(['/cadastrar-categoria']);
-  // }
-
   deleteProduct(id: number): void {
-    if (confirm('Você tem certeza que deseja excluir esta categoria?')) {
+    if (confirm('Você tem certeza que deseja excluir este produto?')) {
       this.productService.deleteProduct(id).subscribe(
         () => {
-          this.products = this.products.filter(
-            (products) => products.id !== id
-          );
-          alert('Categoria excluída com sucesso.');
+          this.products = this.products.filter((product) => product.id !== id);
           this.showError();
         },
         (error) => {
-          console.error('Erro ao excluir categoria', error);
-          alert('Erro ao excluir categoria.');
+          console.error('Erro ao excluir produto', error);
         }
       );
     }
@@ -184,48 +174,56 @@ export class ProductsComponent {
 
   editProductModal(product: Product): void {
     this.editProduct = { ...product };
+    this.editForm.patchValue(this.editProduct); // Atualiza o formulário com os dados do produto
     this.showEditModal = true;
-    this.productExists = false;
-    this.productErrorMessage = '';
-  }
-
-  createProductModal(): void {
-    this.newProduct = this.initializeProduct();
-    this.showCreateModal = true;
     this.productExists = false;
     this.productErrorMessage = '';
   }
 
   closeModal(): void {
     this.showEditModal = false;
-    this.showCreateModal = false;
   }
 
   onEditSubmit(): void {
-    if (this.editProduct.name) {
-      this.editProduct.slug = this.generateSlug(this.editProduct.name);
+    if (this.editForm.valid) {
+      this.editProduct = { ...this.editProduct, ...this.editForm.value };
+      this.editProduct.slug = this.generateSlug(this.editProduct.name!);
 
       this.productService.updateProduct(this.editProduct).subscribe(
-        (response) => {
-          console.log('Categoria atualizada com sucesso!', response);
+        () => {
           this.showEditModal = false;
-          this.productExists = false;
-          this.productErrorMessage = '';
           this.loadProduct();
-          this.showSuccess();
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Sucesso',
+            detail: 'Produto atualizado com sucesso!',
+          });
         },
         (error) => {
-          console.error('Erro ao atualizar a categoria:', error);
-          // Atualize o tratamento de erro para refletir o status da API
-          if (error.status === 409) {
-            this.productExists = true;
-            this.productErrorMessage = 'Categoria já existe.';
-          } else {
-            this.productExists = false;
-            this.productErrorMessage = 'Erro ao atualizar a categoria.';
-          }
+          console.error('Erro ao atualizar produto:', error);
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Erro',
+            detail: 'Falha ao atualizar o produto.',
+          });
         }
       );
     }
+  }
+
+  showSuccess() {
+    this.messageService.add({
+      severity: 'success',
+      summary: 'Sucesso',
+      detail: 'Produto cadastrado com sucesso!',
+    });
+  }
+
+  showError() {
+    this.messageService.add({
+      severity: 'error',
+      summary: 'Erro',
+      detail: 'Produto excluído!',
+    });
   }
 }
