@@ -1,29 +1,37 @@
-export enum Estates {
-  AC = 1, // Acre
-  AL = 2, // Alagoas
-  AM = 3, // Amazonas
-  AP = 4, // Amapá
-  BA = 5, // Bahia
-  CE = 6, // Ceará
-  DF = 7, // Distrito Federal
-  ES = 8, // Espírito Santo
-  GO = 9, // Goiás
-  MA = 10, // Maranhão
-  MG = 11, // Minas Gerais
-  MS = 12, // Mato Grosso do Sul
-  MT = 13, // Mato Grosso
-  PA = 14, // Pará
-  PB = 15, // Paraíba
-  PE = 16, // Pernambuco
-  PI = 17, // Piauí
-  PR = 18, // Paraná
-  RJ = 19, // Rio de Janeiro
-  RN = 20, // Rio Grande do Norte
-  RO = 21, // Rondônia
-  RR = 22, // Roraima
-  RS = 23, // Rio Grande do Sul
-  SC = 24, // Santa Catarina
-  SE = 25, // Sergipe
-  SP = 26, // São Paulo
-  TO = 27, // Tocantins
+export interface State {
+  id: number;
+  name: string;
+  abbreviation: string;
 }
+
+export const States: State[] = [
+  { id: 1, name: 'Acre', abbreviation: 'AC' },
+  { id: 2, name: 'Alagoas', abbreviation: 'AL' },
+  { id: 3, name: 'Amazonas', abbreviation: 'AM' },
+  { id: 4, name: 'Amapá', abbreviation: 'AP' },
+  { id: 5, name: 'Bahia', abbreviation: 'BA' },
+  { id: 6, name: 'Ceará', abbreviation: 'CE' },
+  { id: 7, name: 'Distrito Federal', abbreviation: 'DF' },
+  { id: 8, name: 'Espírito Santo', abbreviation: 'ES' },
+  { id: 9, name: 'Goiás', abbreviation: 'GO' },
+  { id: 10, name: 'Maranhão', abbreviation: 'MA' },
+  { id: 11, name: 'Minas Gerais', abbreviation: 'MG' },
+  { id: 12, name: 'Mato Grosso do Sul', abbreviation: 'MS' },
+  { id: 13, name: 'Mato Grosso', abbreviation: 'MT' },
+  { id: 14, name: 'Pará', abbreviation: 'PA' },
+  { id: 15, name: 'Paraíba', abbreviation: 'PB' },
+  { id: 16, name: 'Pernambuco', abbreviation: 'PE' },
+  { id: 17, name: 'Piauí', abbreviation: 'PI' },
+  { id: 18, name: 'Paraná', abbreviation: 'PR' },
+  { id: 19, name: 'Rio de Janeiro', abbreviation: 'RJ' },
+  { id: 20, name: 'Rio Grande do Norte', abbreviation: 'RN' },
+  { id: 21, name: 'Rondônia', abbreviation: 'RO' },
+  { id: 22, name: 'Roraima', abbreviation: 'RR' },
+  { id: 23, name: 'Rio Grande do Sul', abbreviation: 'RS' },
+  { id: 24, name: 'Santa Catarina', abbreviation: 'SC' },
+  { id: 25, name: 'Sergipe', abbreviation: 'SE' },
+  { id: 26, name: 'São Paulo', abbreviation: 'SP' },
+  { id: 27, name: 'Tocantins', abbreviation: 'TO' },
+];
+
+export type States = State;

@@ -63,6 +63,57 @@
         </div>
     </div>
 
+    <!-- Modal para Atualizar Produto -->
+    <div *ngIf="showEditModal" class="fixed z-50 inset-0 bg-gray-900 bg-opacity-90 overflow-y-auto">
+        <div class="flex items-center justify-center min-h-screen">
+            <div class="bg-white p-6 rounded-lg shadow-lg max-w-md w-full">
+                <h2 class="text-xl font-bold mb-4">Editar Produto</h2>
+
+                <form [formGroup]="editForm" (ngSubmit)="onEditSubmit()">
+                    <div class="mb-4">
+                        <label for="name" class="block text-sm font-medium text-gray-700">Nome</label>
+                        <input formControlName="name" id="name" type="text" class="mt-1 block w-full px-3 py-2 border rounded-md shadow-sm sm:text-sm" required />
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="description" class="block text-sm font-medium text-gray-700">Descrição</label>
+                        <textarea formControlName="description" id="description" rows="5" class="block w-full px-3 py-2 text-gray-700 border rounded-md"></textarea>
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="categoryId" class="block text-sm font-medium text-gray-700">Categoria</label>
+                        <p-dropdown formControlName="categoryId" [options]="categories" optionValue="id" optionLabel="name" placeholder="Selecione a categoria" class="w-full" id="categoriaId"></p-dropdown>
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="price" class="block text-sm font-medium text-gray-700">Preço</label>
+                        <p-inputNumber formControlName="price" mode="currency" currency="BRL" locale="pt-BR" inputId="currency-br" class="w-full"></p-inputNumber>
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="stock" class="block text-sm font-medium text-gray-700">Estoque</label>
+                        <input formControlName="stock" id="stock" type="number" class="block w-full px-3 py-2 text-gray-700 border rounded-md" required />
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="isActive" class="block text-sm font-medium text-gray-700">Está ativo?</label>
+                        <p-inputSwitch formControlName="isActive"></p-inputSwitch>
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="image" class="block text-sm font-medium text-gray-700">Imagem</label>
+                        <p-fileUpload mode="basic" name="image" formControlName="image" [auto]="true" accept=".jpg,.jpeg,.png,.gif" maxFileSize="5000000" (onUpload)="onBasicUploadAuto($event)" chooseLabel="Escolher Imagem"></p-fileUpload>
+                    </div>
+
+                    <div class="flex justify-end">
+                        <button type="button" class="px-4 py-2 bg-gray-500 text-white rounded-md mr-2" (click)="closeModal()">Cancelar</button>
+                        <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded-md" [disabled]="editForm.invalid">Salvar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- Fim do Modal -->
 
 
 </div>

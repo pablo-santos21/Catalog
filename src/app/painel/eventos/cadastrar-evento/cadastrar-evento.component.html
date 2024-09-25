@@ -10,8 +10,8 @@
                     <div class="flex flex-wrap">
                         <div class="w-full lg:w-4/12 md:w-6/12 px-4">
                             <div class="relative w-full mb-3">
-                                <label for="name">Nome do Produto</label>
-                                <input pInputText id="name" name="name" class="input-style placeholder-blueGray-300 text-blueGray-600" formControlName="name" />
+                                <label for="name">Nome do Evento</label>
+                                <input pInputText id="name" name="title" class="input-style placeholder-blueGray-300 text-blueGray-600" formControlName="title" />
                             </div>
                         </div>
 
@@ -22,31 +22,53 @@
                             </div>
                         </div> -->
 
+
+
                         <div class="w-full lg:w-4/12 md:w-6/12 px-4">
                             <div class="relative w-full mb-3">
-                                <label for="currency-br">Preço do Produto</label>
-                                <p-inputNumber formControlName="price" name="price" inputId="currency-br" mode="currency" currency="BRL" locale="pt-BR" inputStyleClass="input-style placeholder-blueGray-300 text-blueGray-600"></p-inputNumber>
+                                <label for="city">Cidade</label>
+                                <input pInputText id="city" name="city" class="input-style placeholder-blueGray-300 text-blueGray-600" formControlName="city" />
                             </div>
                         </div>
 
                         <div class="w-full lg:w-4/12 md:w-6/12 px-4">
                             <div class="relative w-full mb-3">
-                                <label for="estoque">Estoque do Produto</label>
-                                <p-inputNumber formControlName="stock" inputId="integeronly" name="stock" inputStyleClass="input-style placeholder-blueGray-300 text-blueGray-600"></p-inputNumber>
+                                <label for="neighborhood">Endereço</label>
+                                <input pInputText id="neighborhood" name="neighborhood" class="input-style placeholder-blueGray-300 text-blueGray-600" formControlName="neighborhood" />
                             </div>
                         </div>
 
                         <div class="w-full lg:w-4/12 md:w-6/12 px-4">
                             <div class="relative w-full mb-3">
-                                <label for="imagem">Imagem do Produto</label>
+                                <label for="imagem">Imagem do Evento</label>
                                 <p-fileUpload mode="basic" formControlName="image" chooseIcon="pi pi-upload" url="https://www.primefaces.org/cdn/api/upload.php" accept=".jpg,.jpeg,.png,.gif" maxFileSize="5000000" (onUpload)="onBasicUploadAuto($event)" [auto]="true" chooseLabel="Arquivo" name="imagem" id="imagem" class="p-4"></p-fileUpload>
                             </div>
                         </div>
 
+                        <div class="flex-auto">
+                            <label for="calendar-24h" class="font-bold block mb-2">Dia do Evento</label>
+                            <p-calendar inputId="calendar" formControlName="eventDate" [showTime]="true" dateFormat="dd.mm.yy">
+                            </p-calendar>
+                        </div>
+
                         <div class="w-full lg:w-4/12 md:w-6/12 px-4">
                             <div class="relative w-full mb-3">
-                                <label for="categoria">Categoria do Produto</label>
-                                <p-dropdown formControlName="categoryId" [options]="categories" optionLabel="name" placeholder="Selecione a categoria" name="categoria" id="categoria"></p-dropdown>
+                                <label for="typeEvent">Categoria do Evento</label>
+                                <p-dropdown formControlName="typeEventId" [options]="typeEvent" optionLabel="name" placeholder="Selecione o tipo de evento" name="typeEvent" id="typeEvent"></p-dropdown>
+                            </div>
+                        </div>
+
+                        <div class="w-full lg:w-4/12 md:w-6/12 px-4">
+                            <div class="relative w-full mb-3">
+                                <label for="state">Estado do Evento</label>
+                                <p-dropdown formControlName="state" [options]="statesDropdown" optionLabel="label" placeholder="Selecione o estado de evento" name="state" id="state"></p-dropdown>
+                            </div>
+                        </div>
+
+                        <div class="w-full lg:w-4/12 md:w-6/12 px-4">
+                            <div class="relative w-full mb-3">
+                                <label for="local">Modalidade do Evento</label>
+                                <p-dropdown formControlName="local" [options]="modalOptions" optionLabel="label" placeholder="Selecione a Modalidade" name="local" id="local"></p-dropdown>
                             </div>
                         </div>
 
@@ -59,8 +81,8 @@
 
                         <div class="w-full lg:w-4/12 md:w-6/12 px-4">
                             <div class="relative w-full mb-3">
-                                <label for="ativo">Produto está ativo?</label>
-                                <p-inputSwitch formControlName="isActive" class="px-3 py-3 w-full ease-linear transition-all duration-150 flex" name="ativo" id="ativo"></p-inputSwitch>
+                                <label for="occurred">Evento ja ocorreu?</label>
+                                <p-inputSwitch formControlName="occurred" class="px-3 py-3 w-full ease-linear transition-all duration-150 flex" name="occurred" id="occurred"></p-inputSwitch>
                             </div>
                         </div>
 

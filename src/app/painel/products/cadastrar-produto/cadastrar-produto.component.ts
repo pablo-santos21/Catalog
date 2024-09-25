@@ -49,7 +49,7 @@ export class CadastrarProdutoComponent implements OnInit {
   formGroup: FormGroup = new FormGroup({
     name: new FormControl('', Validators.required),
     description: new FormControl('', Validators.required),
-    slug: new FormControl('', Validators.required),
+    slug: new FormControl(''),
     price: new FormControl(null, Validators.required),
     stock: new FormControl(null, Validators.required),
     isActive: new FormControl(true),

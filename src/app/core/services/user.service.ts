@@ -31,7 +31,7 @@ export class UserService {
   }
 
   private setToken(token: string): void {
-    localStorage.setItem(this.tokenKey, `Bearer ${token}`);
+    localStorage.setItem(this.tokenKey, `${token}`);
   }
 
   private getToken(): string | null {
@@ -40,8 +40,13 @@ export class UserService {
 
   refreshToken(): Observable<User> {
     const refreshToken = this.getRefreshToken();
+    const accessToken = this.getToken();
+
     return this.client
-      .post<User>(`${this.refreshUrl}/refresh-token`, { refreshToken })
+      .post<User>(`${this.refreshUrl}/refresh-token`, {
+        accessToken,
+        refreshToken,
+      })
       .pipe(
         tap({
           next: (response) => {

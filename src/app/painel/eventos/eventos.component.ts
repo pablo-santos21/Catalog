@@ -1,6 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import {
+  FormGroup,
+  Validators,
+  FormsModule,
+  ReactiveFormsModule,
+  FormBuilder,
+} from '@angular/forms';
 import { MessageService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { FloatLabelModule } from 'primeng/floatlabel';
@@ -11,7 +17,16 @@ import { ToastModule } from 'primeng/toast';
 import { EventLocation, ScheduledEvent } from '../../models/scheduled-event';
 import { Router } from '@angular/router';
 import { ScheduledEventService } from '../../core/services/scheduled-event.service';
-import { Estates } from '../../models/Estates';
+import { State, States } from '../../models/Estates';
+
+import { InputTextareaModule } from 'primeng/inputtextarea';
+import { InputSwitchModule } from 'primeng/inputswitch';
+import { DropdownModule } from 'primeng/dropdown';
+import { InputNumberModule } from 'primeng/inputnumber';
+import { FileUploadModule } from 'primeng/fileupload';
+import { CalendarModule } from 'primeng/calendar';
+import { TypeEvent } from '../../models/TypeEvent';
+import { TypeEventService } from '../../core/services/type-event.service';
 
 @Component({
   selector: 'app-eventos',
@@ -25,45 +40,81 @@ import { Estates } from '../../models/Estates';
     ToastModule,
     ButtonModule,
     RippleModule,
+    ReactiveFormsModule,
+    InputTextareaModule,
+    InputSwitchModule,
+    DropdownModule,
+    InputNumberModule,
+    FileUploadModule,
+    CalendarModule,
   ],
   providers: [MessageService],
   templateUrl: './eventos.component.html',
-  styleUrl: './eventos.component.css',
+  styleUrls: ['./eventos.component.css'],
 })
 export class EventosComponent {
+  isLoading: any;
   scheduledEvents: ScheduledEvent[] = [];
+
+  eventDate: Date | null = null; // Adicionado
+
+  editForm!: FormGroup;
+  showEditModal: boolean = false;
+  showCreateModal: boolean = false;
 
   editScheduledEvent: ScheduledEvent = this.initializeScheduledEvent();
   newScheduledEvent: ScheduledEvent = this.initializeScheduledEvent();
 
-  showEditModal: boolean = false;
-  showCreateModal: boolean = false;
-  isLoading: boolean = false;
-
   scheduledEventExists: boolean = false;
   scheduledEventErrorMessage: string = '';
 
-  // editScheduledEvent: ScheduledEvent = {
-  //   id: 0,
-  //   title: '',
-  //   description: '',
-  //   local: 'Presencial',
-  //   city: '',
-  //   state: Estates.RS,
-  //   neighborhood: '',
-  //   createdAt: new Date(),
-  //   updateAt: new Date(),
-  //   eventDate: undefined,
-  //   occurred: false,
-  //   slug: '',
-  //   typeEventId: 0,
-  // };
+  typeEvent: TypeEvent[] = [];
+  statesDropdown: { label: string; value: State }[] = [];
+  modalOptions: any[] = [
+    { id: 'presencial', label: 'Presencial' },
+    { id: 'online', label: 'Online' },
+  ]; // Opções de modalidade
 
   constructor(
     private scheduledEventService: ScheduledEventService,
-    private router: Router,
-    private messageService: MessageService
+    private typeEventService: TypeEventService,
+    private messageService: MessageService,
+    private fb: FormBuilder,
+    private router: Router
   ) {}
+
+  ngOnInit(): void {
+    this.initializeForm();
+    this.loadScheduledEvents();
+    this.loadStates();
+    this.loadTypeEvent();
+  }
+
+  navigateToCreateEvent() {
+    this.router.navigate(['/cadastrar-evento']);
+  }
+
+  initializeState(): State {
+    return { id: 0, name: '', abbreviation: '' };
+  }
+
+  initializeForm(): void {
+    this.editForm = this.fb.group({
+      title: ['', Validators.required],
+      description: ['', Validators.required],
+      city: ['', Validators.required],
+      neighborhood: ['', Validators.required],
+      typeEventId: [null, Validators.required],
+      state: [this.initializeState(), Validators.required],
+      local: [null, Validators.required],
+      // eventDate: new Date(),
+      eventDate: [new Date(), Validators.required],
+      occurred: [false],
+      image: [''],
+      slug: [''],
+      // state: [null, Validators.required],
+    });
+  }
 
   initializeScheduledEvent(): ScheduledEvent {
     return {
@@ -72,52 +123,55 @@ export class EventosComponent {
       description: '',
       local: 'Presencial',
       city: '',
-      state: Estates.RS,
+      state: States[1],
       neighborhood: '',
       createdAt: new Date(),
       updateAt: new Date(),
-      eventDate: undefined,
+      eventDate: new Date(),
       occurred: false,
       slug: '',
       typeEventId: 0,
     };
   }
 
-  showSuccess() {
-    this.messageService.add({
-      severity: 'success',
-      summary: 'Sucesso',
-      detail: 'Categoria salva com sucesso!',
-    });
-  }
-
-  showError() {
-    this.messageService.add({
-      severity: 'error',
-      summary: 'Deletado',
-      detail: 'Categoria deletada!',
-    });
-  }
-
-  ngOnInit(): void {
-    this.loadScheduledEvent();
-  }
-
-  loadScheduledEvent(): void {
+  loadScheduledEvents(): void {
     this.isLoading = true;
     this.scheduledEventService.getScheduledEvent().subscribe(
       (response) => {
-        this.scheduledEvents = response; // Armazena as categorias retornadas na variável
+        this.scheduledEvents = response;
         this.isLoading = false;
-        console.log('Categorias carregadas com sucesso!', response);
+        console.log('Evento carregado com sucesso', response);
       },
       (error) => {
-        console.error('Erro ao carregar as categorias:', error);
+        console.error('Erro ao carregar os eventos:', error);
         this.isLoading = false;
       }
     );
   }
 
+  loadStates() {
+    this.statesDropdown = States.map((state) => ({
+      label: state.name, // Usando `name` como rótulo
+      value: state, // Passando o objeto `state` completo como valor
+    }));
+  }
+
+  loadTypeEvent(): void {
+    this.typeEventService.getTypeEvent().subscribe(
+      (response: TypeEvent[]) => {
+        this.typeEvent = response.map((event) => ({
+          name: event.name,
+          id: event.id,
+          slug: event.slug,
+        }));
+      },
+      (error) => {
+        console.error('Erro ao carregar os tipos de eventos:', error);
+      }
+    );
+  }
+
+  // Utility function to generate slugs
   generateSlug(name: string): string {
     return name
       .normalize('NFD')
@@ -127,62 +181,25 @@ export class EventosComponent {
       .replace(/[^\w-]/g, '');
   }
 
-  onSubmit() {
-    // Verifica se o título está vazio
-    if (!this.newScheduledEvent.title) {
-      console.error('Preencha todos os campos antes de enviar.');
-      return;
+  onBasicUploadAuto(event: any): void {
+    if (event.files && event.files.length > 0) {
+      const uploadedFile = event.files[0];
+      this.newScheduledEvent.image = uploadedFile.name; // Salva o nome do arquivo ou o link
+      console.log('Arquivo carregado com sucesso:', uploadedFile);
     }
-
-    // Gera o slug com base no título
-    this.newScheduledEvent.slug = this.generateSlug(
-      this.newScheduledEvent.title
-    );
-
-    // Chama o serviço para adicionar o novo evento agendado
-    this.scheduledEventService
-      .addScheduledEvent(this.newScheduledEvent)
-      .subscribe(
-        (response) => {
-          console.log('Evento agendado com sucesso!', response);
-          this.closeModal(); // Fecha o modal após o sucesso
-          this.newScheduledEvent = this.initializeScheduledEvent(); // Reseta o formulário
-          this.loadScheduledEvent(); // Atualiza a lista de eventos
-          this.showSuccess(); // Exibe mensagem de sucesso
-        },
-        (error) => {
-          console.error('Erro ao agendar o evento:', error);
-
-          if (error.status === 409) {
-            this.scheduledEventExists = true;
-            this.scheduledEventErrorMessage = 'Evento já existe.';
-
-            const nameInput = document.getElementById('name');
-            if (nameInput) {
-              nameInput.focus();
-            }
-          }
-        }
-      );
   }
 
-  // navigateToCreateCategory() {
-  //   this.router.navigate(['/cadastrar-categoria']);
-  // }
-
   deleteScheduledEvent(id: number): void {
-    if (confirm('Você tem certeza que deseja excluir esta categoria?')) {
+    if (confirm('Você tem certeza que deseja excluir este evento?')) {
       this.scheduledEventService.deleteScheduledEvent(id).subscribe(
         () => {
           this.scheduledEvents = this.scheduledEvents.filter(
             (scheduledEvents) => scheduledEvents.id !== id
           );
-          alert('Categoria excluída com sucesso.');
           this.showError();
         },
         (error) => {
-          console.error('Erro ao excluir categoria', error);
-          alert('Erro ao excluir categoria.');
+          console.error('Erro ao excluir evento', error);
         }
       );
     }
@@ -190,53 +207,104 @@ export class EventosComponent {
 
   editScheduledEventModal(scheduledEvent: ScheduledEvent): void {
     this.editScheduledEvent = { ...scheduledEvent };
-    this.showEditModal = true;
-    this.scheduledEventExists = false;
-    this.scheduledEventErrorMessage = '';
-  }
 
-  createScheduledEventModal(): void {
-    this.newScheduledEvent = this.initializeScheduledEvent();
-    this.showCreateModal = true;
+    if (
+      this.editScheduledEvent.eventDate &&
+      typeof this.editScheduledEvent.eventDate === 'string'
+    ) {
+      this.editScheduledEvent.eventDate = new Date(
+        this.editScheduledEvent.eventDate
+      );
+    }
+
+    this.editForm.patchValue(this.editScheduledEvent);
+    this.showEditModal = true;
     this.scheduledEventExists = false;
     this.scheduledEventErrorMessage = '';
   }
 
   closeModal(): void {
     this.showEditModal = false;
-    this.showCreateModal = false;
+  }
+
+  // Toast notification functions
+  showSuccess() {
+    this.messageService.add({
+      severity: 'success',
+      summary: 'Success',
+      detail: 'Event updated successfully!',
+    });
+  }
+
+  showError() {
+    this.messageService.add({
+      severity: 'error',
+      summary: 'Error',
+      detail: 'Error updating event!',
+    });
   }
 
   onEditSubmit(): void {
-    if (this.editScheduledEvent.title) {
+    if (this.editForm.valid) {
+      let eventDateLocal = this.editForm.value.eventDate;
+
+      if (!(eventDateLocal instanceof Date)) {
+        eventDateLocal = new Date(eventDateLocal);
+      }
+
+      const eventDateUTC = new Date(
+        eventDateLocal.getTime() - eventDateLocal.getTimezoneOffset() * 60000
+      );
+
+      this.editScheduledEvent = {
+        ...this.editScheduledEvent,
+        ...this.editForm.value,
+        eventDate: eventDateUTC,
+      };
       this.editScheduledEvent.slug = this.generateSlug(
-        this.editScheduledEvent.title
+        this.editScheduledEvent.title!
       );
 
       this.scheduledEventService
         .updateScheduledEvent(this.editScheduledEvent)
         .subscribe(
-          (response) => {
-            console.log('Categoria atualizada com sucesso!', response);
+          () => {
             this.showEditModal = false;
-            this.scheduledEventExists = false;
-            this.scheduledEventErrorMessage = '';
-            this.loadScheduledEvent();
-            this.showSuccess();
+            this.loadScheduledEvents();
+            this.messageService.add({
+              severity: 'success',
+              summary: 'Sucesso',
+              detail: 'Produto atualizado com sucesso!',
+            });
           },
           (error) => {
-            console.error('Erro ao atualizar a categoria:', error);
-            // Atualize o tratamento de erro para refletir o status da API
-            if (error.status === 409) {
-              this.scheduledEventExists = true;
-              this.scheduledEventErrorMessage = 'Categoria já existe.';
-            } else {
-              this.scheduledEventExists = false;
-              this.scheduledEventErrorMessage =
-                'Erro ao atualizar a categoria.';
-            }
+            console.error('Erro ao atualizar produto:', error);
+            this.messageService.add({
+              severity: 'error',
+              summary: 'Erro',
+              detail: 'Falha ao atualizar o produto.',
+            });
           }
         );
+    } else {
+      // Find invalid controls
+      const invalidFields: string[] = [];
+      Object.keys(this.editForm.controls).forEach((field) => {
+        const control = this.editForm.get(field);
+        if (control && control.invalid) {
+          invalidFields.push(field);
+          console.log('Estado selecionado:', this.editForm.value.state);
+        }
+      });
+
+      // Display missing or invalid fields
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Erro',
+        detail: `Campos inválidos: ${invalidFields.join(', ')}`,
+      });
+
+      console.log('Invalid form fields:', invalidFields);
     }
   }
 }

@@ -1,0 +1,89 @@
+<div class="bg-gray-50 ">
+    <div class="p-4">
+        <div class="bg-vridro text-white p-4 rounded-md">
+            <div class="flex flex-row py-2">
+                <h2 class=" mx-0 my-auto text-xl font-bold text-gray-700">Cadastro de Produtos</h2>
+            </div>
+            <div class="flex-auto px-4 lg:px-10 py-10 pt-0">
+                <form (ngSubmit)="onSubmit()">
+
+                    <div class="flex flex-wrap">
+                        <div class="w-full lg:w-4/12 md:w-6/12 px-4">
+                            <div class="relative w-full mb-3">
+                                <label for="name">Nome do Produto</label>
+                                <input pInputText id="name" name="name" class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-gray-100 rounded-md text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" [(ngModel)]="value" />
+                            </div>
+                        </div>
+
+                        <div class="w-full lg:w-4/12 md:w-6/12 px-4">
+                            <div class="relative w-full mb-3">
+                                <label for="slug">Slug</label>
+                                <input pInputText id="slug" name="slug" class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-gray-100 rounded-md text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" [(ngModel)]="value" disabled="" />
+                            </div>
+                        </div>
+
+                        <div class="w-full lg:w-4/12 md:w-6/12 px-4">
+                            <div class="relative w-full mb-3">
+                                <label for="currency-br">
+                                    Preço do Produto
+                                </label>
+                                <p-inputNumber [(ngModel)]="value1" name="price" inputId="currency-br" mode="currency" currency="BRL" locale="pt-BR" inputStyleClass="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-gray-100 rounded-md text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" />
+                            </div>
+                        </div>
+
+                        <div class="w-full lg:w-4/12 md:w-6/12 px-4">
+                            <div class="relative w-full mb-3">
+                                <label for="estoque">
+                                    Estoque do Produto
+                                </label>
+                                <p-inputNumber inputId="integeronly" [(ngModel)]="value2" name="estoque" id="estoque" inputStyleClass="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-gray-100 rounded-md text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" />
+
+                            </div>
+                        </div>
+
+                        <div class="w-full lg:w-4/12 md:w-6/12 px-4">
+                            <div class="relative w-full mb-3">
+                                <label for="imagem">
+                                    Imagem do Produto
+                                </label>
+                                <p-toast />
+                                <p-fileUpload mode="basic" name="demo[]" chooseIcon="pi pi-upload" url="https://www.primefaces.org/cdn/api/upload.php" accept=".jpg,.jpeg,.png,.gif" maxFileSize="5000000" (onUpload)="onBasicUploadAuto($event)" [auto]="true" formControlName="image" chooseLabel="Arquivo" name="imagem" id="imagem" class="p-4" />
+                            </div>
+                        </div>
+
+                        <div class="w-full lg:w-4/12 md:w-6/12 px-4">
+                            <div class="relative w-full mb-3">
+                                <label for="categoria">
+                                    Categoria do Produto
+                                </label>
+                                <form [formGroup]="formGroup" class="pt-2">
+                                    <p-dropdown formControlName="selectedCity" [options]="cities" optionLabel="name" placeholder="Selecione a cidade" name="categoria" id="categoria" />
+                                </form>
+                            </div>
+                        </div>
+
+                        <div class="w-full lg:w-4/12 md:w-6/12 px-4">
+                            <div class="relative w-full mb-3">
+                                <label for="description">Descrição do Produto</label>
+                                <form [formGroup]="formGroup">
+                                    <textarea rows="5" cols="30" pInputTextarea formControlName="text" name="description" class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-gray-100 rounded-md text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150">
+                                    </textarea>
+                                </form>
+                            </div>
+                        </div>
+
+                        <div class="w-full lg:w-4/12 md:w-6/12 px-4">
+                            <div class="relative w-full mb-3">
+                                <label for="ativo">
+                                    Produto está ativo?
+                                </label>
+
+                                <p-inputSwitch [(ngModel)]="isActive" class="px-3 py-3 w-full ease-linear transition-all duration-150 flex" name="ativo" id="ativo" />
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
