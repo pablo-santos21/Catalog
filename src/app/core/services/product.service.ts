@@ -1,7 +1,8 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Product } from '../../models/product';
+import { PagedResult } from './paged-result';
 
 @Injectable({
   providedIn: 'root',
@@ -13,6 +14,16 @@ export class ProductService {
 
   getProduct(): Observable<Product[]> {
     return this.client.get<Product[]>(`${this.apiUrl}/test`);
+  }
+
+  getProducts(
+    page: number,
+    pageSize: number
+  ): Observable<PagedResult<Product>> {
+    let params = new HttpParams()
+      .set('pageIndex', page)
+      .set('pageSize', pageSize);
+    return this.client.get<PagedResult<Product>>(this.apiUrl, { params });
   }
 
   // Método para obter uma categoria por ID

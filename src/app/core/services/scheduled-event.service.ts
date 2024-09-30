@@ -15,12 +15,12 @@ export class ScheduledEventService {
     return this.client.get<ScheduledEvent[]>(`${this.apiUrl}/test`);
   }
 
-  // Método para obter uma categoria por ID
+  // Método para obter um evento por ID
   getScheduledEventById(id: number): Observable<ScheduledEvent> {
     return this.client.get<ScheduledEvent>(`${this.apiUrl}/${id}`);
   }
 
-  // Método para adicionar uma nova categoria
+  // Método para adicionar um novo evento
   addScheduledEvent(
     scheduledEvent: ScheduledEvent
   ): Observable<ScheduledEvent> {
@@ -50,7 +50,7 @@ export class ScheduledEventService {
     );
   }
 
-  // Método para excluir uma categoria
+  // Método para excluir um evento
   deleteScheduledEvent(id: number): Observable<string> {
     const token = localStorage.getItem('Bearer'); // Obtém o token JWT do localStorage
     const headers = new HttpHeaders({

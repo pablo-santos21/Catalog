@@ -14,6 +14,7 @@ module.exports = {
         xl: "1280px",
       },
       colors: {
+        bgPrimary: "#041508",
         btnPrimary: "#5F7A69",
         bodyColorligth: "#cfcfcf",
         lightText: "#c4cfde",
@@ -21,9 +22,13 @@ module.exports = {
         boxBg: "linear-gradient(145deg, #1e2024, #23272b)",
         designColor: "#04ff00",
         vridro: "#030C04",
+        tituloForm: "#083807",
+        textoForm: "#23491D",
+        fundoForm: "#A5B793",
+        bgFild: "#064e3b",
       },
       boxShadow: {
-        shadowOne: "10px 10px 19px #1c1e22, -10px -10px 19px #262a2e",
+        shadowOne: "2px 2px 40px #0b3d0b, -2px -2px 40px #064e3b",
       },
     },
     container: {
