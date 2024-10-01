@@ -20,12 +20,16 @@ module.exports = {
         lightText: "#c4cfde",
         darkText: "#2d302f",
         boxBg: "linear-gradient(145deg, #1e2024, #23272b)",
+        boxTop: "linear-gradient(to top, #117843 , #264b41 )",
+        // to top
         designColor: "#04ff00",
         vridro: "#030C04",
         tituloForm: "#083807",
         textoForm: "#23491D",
         fundoForm: "#A5B793",
         bgFild: "#064e3b",
+        colorFron: "#117843",
+        colotTo: "#264b41",
       },
       boxShadow: {
         shadowOne: "2px 2px 40px #0b3d0b, -2px -2px 40px #064e3b",
