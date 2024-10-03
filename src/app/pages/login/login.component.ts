@@ -14,6 +14,7 @@ import { CommonModule } from '@angular/common';
 })
 export class LoginComponent implements OnInit {
   message: string | null = null;
+  loginErrorMessage: string = '';
 
   email: string = '';
   password: string = '';
@@ -54,6 +55,17 @@ export class LoginComponent implements OnInit {
       },
       error: (err) => {
         console.error('Login failed', err);
+
+        if (
+          err.status === 401 &&
+          err.error === 'Usuário não confirmou o email!'
+        ) {
+          this.loginErrorMessage =
+            'Você precisa confirmar seu email antes de fazer login!';
+        } else {
+          this.loginErrorMessage = 'Senha ou email inválido!';
+        }
+
         this.loginError = true;
       },
     });

@@ -26,9 +26,9 @@ import { ProductsComponent } from './painel/products/products.component';
 import { CategoriesComponent } from './painel/categories/categories.component';
 import { EventosComponent } from './painel/eventos/eventos.component';
 import { CadastrarProdutoComponent } from './painel/products/cadastrar-produto/cadastrar-produto.component';
-import { FormulariosComponent } from './pages/formularios/formularios.component';
-import { EditarProdutoComponent } from './painel/products/editar-produto/editar-produto.component';
 import { CadastrarEventoComponent } from './painel/eventos/cadastrar-evento/cadastrar-evento.component';
+import { ForgotpasswordComponent } from './pages/forgotpassword/forgotpassword.component';
+import { ResetpasswordComponent } from './pages/resetpassword/resetpassword.component';
 
 export const routes: Routes = [
   {
@@ -59,6 +59,16 @@ export const routes: Routes = [
         path: 'precos',
         component: PrecosComponent,
         title: 'Planos - Tesouros da Terra',
+      },
+      {
+        path: 'esqueceu-a-senha',
+        component: ForgotpasswordComponent,
+        title: 'Esqueci a senha - Tesouros da Terra',
+      },
+      {
+        path: 'resetpassword',
+        component: ResetpasswordComponent,
+        title: 'Nova Senha - Tesouros da Terra',
       },
       {
         path: 'login',
