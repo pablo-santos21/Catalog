@@ -1,3 +1,5 @@
+import { Category } from './category';
+
 export interface Product {
   id: number;
   name?: string;
@@ -11,4 +13,5 @@ export interface Product {
   updatedAt: Date;
   userId?: string;
   categoryId: number;
+  category?: Category;
 }

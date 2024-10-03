@@ -1,4 +1,5 @@
 import { States } from './Estates';
+import { TypeEvent } from './TypeEvent';
 export type EventLocation = 'Presencial' | 'Online';
 
 export interface ScheduledEvent {
@@ -16,4 +17,6 @@ export interface ScheduledEvent {
   occurred: boolean;
   slug?: string;
   typeEventId: number;
+  typeEvent?: TypeEvent;
+  linkEvent?: string;
 }

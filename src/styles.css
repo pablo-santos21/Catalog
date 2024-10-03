@@ -17,5 +17,17 @@
 }
 
 .input-style {
-  @apply border-0 px-3 py-3 bg-emerald-900 rounded-md text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150;
+  @apply border-0 px-3 py-3 rounded-md text-sm text-vridro shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150;
+}
+
+.header-table {
+  @apply justify-between bg-gradient-to-t from-colotTo to-colorFron rounded-lg px-4 text-white font-bold block md:table-header-group;
+}
+
+.link-footer {
+  @apply text-gray-50 cursor-pointer hover:text-gray-300;
+}
+
+.title-footer {
+  @apply mb-3 text-sm font-medium tracking-widest text-gray-300 uppercase;
 }

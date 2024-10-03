@@ -9,6 +9,7 @@ import { User } from '../../models/user';
 })
 export class UserService {
   private userUrl = 'http://localhost:5062/v1/auth';
+  private clientUrl = 'http://localhost:4200';
   private tokenKey = 'Bearer';
 
   private refreshUrl = 'http://localhost:5062/v1/auth';
@@ -112,10 +113,16 @@ export class UserService {
   register(
     userName: string,
     email: string,
-    password: string
+    password: string,
+    clienturi: string = `${this.userUrl}/ConfirmEmail`
   ): Observable<User> {
     return this.client
-      .post<User>(`${this.userUrl}/register`, { userName, email, password })
+      .post<User>(`${this.userUrl}/register`, {
+        userName,
+        email,
+        password,
+        clienturi,
+      })
       .pipe(
         tap((response) => {
           if (response.token) {
@@ -125,5 +132,22 @@ export class UserService {
           }
         })
       );
+  }
+
+  forgotPassword(email: string): Observable<void> {
+    const clientUri = `${this.clientUrl}/resetpassword`; // URL de callback
+    return this.client.post<void>(`${this.userUrl}/forgotpassword`, {
+      email,
+      clientUri,
+    });
+  }
+
+  resetPassword(data: {
+    email: string | null;
+    token: string | null;
+    password: string;
+    confirmPassword: string;
+  }): Observable<any> {
+    return this.client.post(`${this.userUrl}/resetpassword`, data);
   }
 }

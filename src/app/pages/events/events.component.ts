@@ -1,5 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { ScheduledEvent } from '../../models/scheduled-event';
+import { ScheduledEventService } from '../../core/services/scheduled-event.service';
+import { TypeEvent } from '../../models/TypeEvent';
 
 @Component({
   selector: 'app-events',
@@ -9,6 +12,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrl: './events.component.css',
 })
 export class EventsComponent implements OnInit {
+  eventos: ScheduledEvent[] = [];
+  typeEvents: TypeEvent[] = [];
+
+  constructor(private service: ScheduledEventService) {}
+
   currentIndex: number = 0;
   events = [
     {
@@ -30,6 +38,10 @@ export class EventsComponent implements OnInit {
 
   ngOnInit(): void {
     this.autoSlide();
+
+    this.service.getScheduledEvent().subscribe((data) => {
+      this.eventos = data;
+    });
   }
 
   nextSlide(): void {

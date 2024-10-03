@@ -107,6 +107,7 @@ export class EventosComponent {
       typeEventId: [null, Validators.required],
       state: [this.initializeState(), Validators.required],
       local: [null, Validators.required],
+      linkEvent: ['', Validators.required],
       // eventDate: new Date(),
       eventDate: [new Date(), Validators.required],
       occurred: [false],
@@ -125,6 +126,7 @@ export class EventosComponent {
       city: '',
       state: States[1],
       neighborhood: '',
+      linkEvent: '',
       createdAt: new Date(),
       updateAt: new Date(),
       eventDate: new Date(),
@@ -242,6 +244,14 @@ export class EventosComponent {
       summary: 'Error',
       detail: 'Error updating event!',
     });
+  }
+
+  truncateDescription(description?: string, maxLength: number = 120): string {
+    if (!description) return ''; // Retorna uma string vazia se a descrição for undefined
+    if (description.length > maxLength) {
+      return description.substring(0, maxLength) + ' ...';
+    }
+    return description;
   }
 
   onEditSubmit(): void {

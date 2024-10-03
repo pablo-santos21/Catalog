@@ -8,7 +8,7 @@
         <div class="bg-white p-4 rounded-md">
             <div>
                 <div class="flex flex-row justify-between py-2">
-                    <h2 class="mx-0 my-auto text-xl font-bold text-gray-700">Categorias</h2>
+                    <h2 class="mx-0 my-auto text-xl font-bold text-gray-700">Eventos</h2>
 
                     <button (click)="navigateToCreateEvent()" type="button" class="flex text-sm bg-green-700 hover:bg-green-900 text-white px-2 rounded focus:outline-none focus:shadow-outline py-3 gap-1">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" class="w-5 h-5 text-inherit flex">
@@ -19,10 +19,10 @@
                 </div>
 
                 <table class="text-left w-full border-collapse block md:table">
-                    <thead class="justify-between bg-gradient-to-tr from-indigo-600 to-purple-600 rounded-lg px-4 text-white font-bold text-md block md:table-header-group">
+                    <thead class="text-md header-table">
                         <tr class="border border-grey-500 md:border-none block md:table-row absolute -top-full md:top-auto -left-full md:left-auto md:relative ">
                             <th class="p-4 font-bold md:border md:border-grey-500 text-left block md:table-cell">Titulo</th>
-                            <th class="p-4 font-bold md:border md:border-grey-500 text-left block md:table-cell">Descrição</th>
+                            <th class="p-4 w-5/12 font-bold md:border md:border-grey-500 text-left block md:table-cell">Descrição</th>
                             <th class="p-4 font-bold md:border md:border-grey-500 text-left block md:table-cell">Modalidade</th>
                             <th class="p-4 font-bold md:border md:border-grey-500 text-left block md:table-cell">Data</th>
                             <th class="p-4 font-bold md:border md:border-grey-500 text-left block md:table-cell">Slug</th>
@@ -35,7 +35,7 @@
                     <tbody *ngFor="let scheduledEvent of scheduledEvents" class="border-t text-sm font-normal px-4 block md:table-row-group">
                         <tr class="w-full border border-grey-500 md:border-none block md:table-row">
                             <td class="p-4 md:border md:border-grey-500 text-left block md:table-cell"><span class="inline-block w-1/3 md:hidden font-bold">Titulo</span>{{ scheduledEvent.title }}</td>
-                            <td class="p-4 md:border md:border-grey-500 text-left block md:table-cell"><span class="inline-block w-1/3 md:hidden font-bold">Descrição</span>{{ scheduledEvent.description }}</td>
+                            <td class="p-4 md:border md:border-grey-500 text-left block md:table-cell"><span class="inline-block w-1/3 md:hidden font-bold">Descrição</span>{{ truncateDescription(scheduledEvent.description) }}</td>
                             <td class="p-4 md:border md:border-grey-500 text-left block md:table-cell"><span class="inline-block w-1/3 md:hidden font-bold">Modalidade</span>{{ scheduledEvent.local }}</td>
                             <td class="p-4 md:border md:border-grey-500 text-left block md:table-cell"><span class="inline-block w-1/3 md:hidden font-bold">Data</span>{{ scheduledEvent.eventDate | date:'dd/MM/yyyy' }}</td>
                             <td class="p-4 md:border md:border-grey-500 text-left block md:table-cell"><span class="inline-block w-1/3 md:hidden font-bold">Slug</span>{{ scheduledEvent.slug }}</td>
@@ -79,6 +79,11 @@
                     </div>
 
                     <div class="mb-4">
+                        <label for="linkEvent" class="block text-sm font-medium text-gray-700">Link do evento</label>
+                        <input formControlName="linkEvent" id="linkEvent" type="text" class="block w-full px-3 py-2 text-gray-700 border rounded-md" />
+                    </div>
+
+                    <div class="mb-4">
                         <label for="eventDate" class="block text-sm font-medium text-gray-700">Dia do Evento</label>
                         <p-calendar formControlName="eventDate" [showTime]="true" dateFormat="mm/dd/yy" hourFormat="24"></p-calendar>
                     </div>
@@ -93,10 +98,14 @@
                         <p-dropdown formControlName="typeEventId" [options]="typeEvent" optionValue="id" optionLabel="name" [placeholder]="'Selecione a categoria'" id="typeEventId"></p-dropdown>
                     </div>
 
-
                     <div class="mb-4">
                         <label for="local" class="block text-sm font-medium text-gray-700">Modalidade do Evento</label>
                         <p-dropdown formControlName="local" [options]="modalOptions" optionLabel="label" optionValue="label" [placeholder]="'Selecione a modalidade'"></p-dropdown>
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="imagem">Imagem do Evento</label>
+                        <p-fileUpload mode="basic" formControlName="image" chooseIcon="pi pi-upload" url="https://www.primefaces.org/cdn/api/upload.php" accept=".jpg,.jpeg,.png,.gif" maxFileSize="5000000" (onUpload)="onBasicUploadAuto($event)" [auto]="true" chooseLabel="Arquivo" name="imagem" id="imagem" class="p-4"></p-fileUpload>
                     </div>
 
                     <div class="mb-4">
