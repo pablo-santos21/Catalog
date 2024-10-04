@@ -150,4 +150,15 @@ export class UserService {
   }): Observable<any> {
     return this.client.post(`${this.userUrl}/resetpassword`, data);
   }
+
+  getUserDetailsFromToken(): { name: string; role: string } | null {
+    const token = this.getToken();
+    if (token) {
+      const payload = JSON.parse(atob(token.split('.')[1]));
+      const name = payload.id || '';
+      const role = payload.role || '';
+      return { name, role };
+    }
+    return null;
+  }
 }
