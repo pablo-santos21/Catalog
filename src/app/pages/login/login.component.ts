@@ -46,7 +46,12 @@ export class LoginComponent implements OnInit {
         const token = response.token;
         const payload = JSON.parse(atob(token.split('.')[1]));
         const role = payload.role;
-        if (role === 'Admin' || role === 'Seller' || role === 'SuperUser') {
+        if (
+          role === 'Admin' ||
+          role === 'Seller' ||
+          role === 'SuperUser' ||
+          role === 'Customer'
+        ) {
           this.router.navigate(['/dashboard']);
         } else {
           this.router.navigate(['/produtos']);

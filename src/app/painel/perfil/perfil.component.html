@@ -1,1 +1,134 @@
-<div>olá perfil</div>
+<p-toast [breakpoints]="{ 
+    '767px': { width: '100%', right: '0', left: '20' },
+ }" />
+
+<div class="bg-fundoForm shadow-2xl">
+    <div class="p-4">
+        <div class="bg-red p-4 rounded-md">
+            <div class="flex-auto px-4 lg:px-10 py-10 pt-0">
+                <form (ngSubmit)="onSubmit()">
+
+                    <!-- About Me Section -->
+                    <h6 class="text-blueGray-400 text-sm mt-3 mb-6 font-bold uppercase">
+                        SOBRE
+                    </h6>
+                    <div class="flex flex-wrap">
+                        <div class="w-full lg:w-12/12 px-4">
+                            <div class="relative w-full mb-3">
+                                <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2" for="about">
+                                    Sobre a Mim / Empresa
+                                </label>
+                                <textarea type="text" [(ngModel)]="updateUserDto.about" class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" rows="4" name="about" id="about"></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- User Information Section -->
+                    <h6 class="text-blueGray-400 text-sm mt-3 mb-6 font-bold uppercase">
+                        Informações do usuário
+                    </h6>
+                    <div class="flex flex-wrap">
+                        <div class="w-full lg:w-6/12 px-4">
+                            <div class="relative w-full mb-3">
+                                <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2" for="firstName">
+                                    Seu nome
+                                </label>
+                                <input type="text" [(ngModel)]="updateUserDto.nome" class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" name="firstName" id="firstName" disabled />
+                            </div>
+                        </div>
+
+                        <div class="w-full lg:w-6/12 px-4">
+                            <div class="relative w-full mb-3">
+                                <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2" for="email">
+                                    Endereço de email
+                                </label>
+                                <input type="email" [(ngModel)]="updateUserDto.email" class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" name="email" id="email" disabled />
+                            </div>
+                        </div>
+
+                        <div class="w-full lg:w-6/12 px-4">
+                            <div class="relative w-full mb-3">
+                                <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2" for="enterpriseName">
+                                    Nome da empresa
+                                </label>
+                                <input type="text" [(ngModel)]="updateUserDto.enterpriseName" class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" name="enterpriseName" id="enterpriseName" />
+                            </div>
+                        </div>
+
+                        <div class="w-full lg:w-6/12 px-4">
+                            <div class="relative w-full mb-3">
+                                <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2" for="cellPhone">
+                                    Telefone de Contato
+                                </label>
+                                <input type="text" [(ngModel)]="updateUserDto.cellPhone" class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" name="cellPhone" id="cellPhone" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Contact Information Section -->
+                    <h6 class="text-blueGray-400 text-sm mt-3 mb-6 font-bold uppercase">
+                        Contact Information
+                    </h6>
+                    <div class="flex flex-wrap">
+                        <div class="w-full lg:w-6/12 px-4">
+                            <div class="relative w-full mb-3">
+                                <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2" for="addressStreet">
+                                    Address
+                                </label>
+                                <input type="text" [(ngModel)]="updateUserDto.addressStreet" class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" name="addressStreet" id="addressStreet" />
+                            </div>
+                        </div>
+                        <div class="w-full lg:w-2/12 px-4">
+                            <div class="relative w-full mb-3">
+                                <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2" for="addressNumber">
+                                    Número
+                                </label>
+                                <input type="text" [(ngModel)]="updateUserDto.addressNumber" class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" name="addressNumber" id="addressNumber" />
+                            </div>
+                        </div>
+                        <div class="w-full lg:w-4/12 px-4">
+                            <div class="relative w-full mb-3">
+                                <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2" for="addressComplement">
+                                    Complemento
+                                </label>
+                                <input type="text" [(ngModel)]="updateUserDto.addressComplement" class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" name="addressComplement" id="addressComplement" />
+                            </div>
+                        </div>
+
+                        <div class="w-full lg:w-4/12 px-4">
+                            <div class="relative w-full mb-3">
+                                <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2" for="addressCity">
+                                    City
+                                </label>
+                                <input type="text" [(ngModel)]="updateUserDto.addressCity" class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" name="addressCity" id="addressCity" />
+                            </div>
+                        </div>
+
+                        <div class="w-full lg:w-4/12 px-4">
+                            <div class="relative w-full mb-3">
+                                <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2" for="addressState">
+                                    State
+                                </label>
+                                <input type="text" [(ngModel)]="updateUserDto.addressState" class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" name="addressState" id="addressState" />
+                            </div>
+                        </div>
+
+                        <div class="w-full lg:w-4/12 px-4">
+                            <div class="relative w-full mb-3">
+                                <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2" for="addressZipCode">
+                                    Postal Code
+                                </label>
+                                <input type="text" [(ngModel)]="updateUserDto.addressZipCode" class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" name="addressZipCode" id="addressZipCode" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="w-full px-4 mt-4 text-center ">
+                        <button type="submit" class="text-tituloForm font-semibold py-2 px-4 rounded-md border-2 border-bgFild hover:bg-bgFild hover:text-white hover:border-white hover:scale-105 duration-300 shadow-lg">
+                            Atualizar Informações
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

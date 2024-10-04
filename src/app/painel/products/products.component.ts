@@ -25,6 +25,7 @@ import { InputSwitchModule } from 'primeng/inputswitch';
 import { DropdownModule } from 'primeng/dropdown';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { FileUploadModule } from 'primeng/fileupload';
+import { UserService } from '../../core/services/user.service';
 
 @Component({
   selector: 'app-products',
@@ -65,6 +66,7 @@ export class ProductsComponent implements OnInit {
 
   constructor(
     private productService: ProductService,
+    private userService: UserService,
     private categoryService: CategoryService,
     private router: Router,
     private messageService: MessageService,
@@ -116,17 +118,23 @@ export class ProductsComponent implements OnInit {
 
   loadProduct(): void {
     this.isLoading = true;
-    this.productService.getProduct().subscribe(
-      (response) => {
-        this.products = response;
-        this.isLoading = false;
-        console.log('Produtos carregados com sucesso!', response);
-      },
-      (error) => {
-        console.error('Erro ao carregar produtos:', error);
-        this.isLoading = false;
-      }
-    );
+    const userId = this.userService.getUserIdFromToken();
+    if (userId) {
+      this.productService.getProductsByUser(userId).subscribe(
+        (response) => {
+          this.products = response;
+          this.isLoading = false;
+          console.log('Produtos do usuário carregados com sucesso!', response);
+        },
+        (error) => {
+          console.error('Erro ao carregar produtos do usuário:', error);
+          this.isLoading = false;
+        }
+      );
+    } else {
+      console.error('Usuário não autenticado.');
+      this.isLoading = false;
+    }
   }
 
   loadCategories(): void {

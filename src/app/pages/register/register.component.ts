@@ -71,6 +71,8 @@ export class RegisterComponent {
   }
 
   register(): void {
+    this.userName = this.userName.trim().replace(/\s+/g, '-');
+
     if (this.password !== this.confirmPassword) {
       this.passwordMismatch = true;
       return;

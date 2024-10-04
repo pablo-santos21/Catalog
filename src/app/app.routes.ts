@@ -29,6 +29,9 @@ import { CadastrarProdutoComponent } from './painel/products/cadastrar-produto/c
 import { CadastrarEventoComponent } from './painel/eventos/cadastrar-evento/cadastrar-evento.component';
 import { ForgotpasswordComponent } from './pages/forgotpassword/forgotpassword.component';
 import { ResetpasswordComponent } from './pages/resetpassword/resetpassword.component';
+import { TrocarSenhaComponent } from './painel/perfil/trocar-senha/trocar-senha.component';
+import { SocialComponent } from './painel/perfil/social/social.component';
+import { FornecedorComponent } from './painel/perfil/fornecedor/fornecedor.component';
 
 export const routes: Routes = [
   {
@@ -121,11 +124,6 @@ export const routes: Routes = [
         title: 'Dashboard - Tesouros da Terra',
       },
       {
-        path: 'perfil',
-        component: PerfilComponent,
-        title: 'Meu Perfil - Tesouros da Terra',
-      },
-      {
         path: 'listar-eventos',
         component: EventosComponent,
         title: 'Cadastrar Eventos - Tesouros da Terra',
@@ -141,19 +139,39 @@ export const routes: Routes = [
         title: 'Cadastrar tipos de eventos - Tesouros da Terra',
       },
       {
-        path: 'listar-produtos',
-        component: ProductsComponent,
-        title: 'Listar Produtos - Tesouros da Terra',
-      },
-      {
         path: 'cadastrar-produto',
         component: CadastrarProdutoComponent,
         title: 'Cadastrar Produtos - Tesouros da Terra',
       },
       {
+        path: 'listar-produtos',
+        component: ProductsComponent,
+        title: 'Listar Produtos - Tesouros da Terra',
+      },
+      {
         path: 'categorias',
         component: CategoriesComponent,
         title: 'Cadastrar Categorias - Tesouros da Terra',
+      },
+      {
+        path: 'perfil',
+        component: PerfilComponent,
+        title: 'Meu Perfil - Tesouros da Terra',
+      },
+      {
+        path: 'trocar-senha',
+        component: TrocarSenhaComponent,
+        title: 'trocar senha - Tesouros da Terra',
+      },
+      {
+        path: 'redes-sociais',
+        component: SocialComponent,
+        title: 'Minhas Redes - Tesouros da Terra',
+      },
+      {
+        path: 'vendedor',
+        component: FornecedorComponent,
+        title: 'Troca de cargo - Tesouros da Terra',
       },
     ],
   },

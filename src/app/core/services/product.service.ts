@@ -16,6 +16,10 @@ export class ProductService {
     return this.client.get<Product[]>(`${this.apiUrl}/full`);
   }
 
+  getProductsByUser(userId: string): Observable<Product[]> {
+    return this.client.get<Product[]>(`${this.apiUrl}/byUser?userId=${userId}`);
+  }
+
   getProducts(
     page: number,
     pageSize: number
@@ -26,12 +30,12 @@ export class ProductService {
     return this.client.get<PagedResult<Product>>(this.apiUrl, { params });
   }
 
-  // Método para obter uma categoria por ID
+  // Método para obter um produto por ID
   getProductById(id: number): Observable<Product> {
     return this.client.get<Product>(`${this.apiUrl}/${id}`);
   }
 
-  // Método para adicionar uma nova categoria
+  // Método para adicionar um novo produto
   addProduct(product: Product): Observable<Product> {
     const token = localStorage.getItem('Bearer'); // Obtém o token JWT do localStorage
     const headers = new HttpHeaders({
@@ -53,7 +57,7 @@ export class ProductService {
     });
   }
 
-  // Método para excluir uma categoria
+  // Método para excluir um produto
   deleteProduct(id: number): Observable<string> {
     const token = localStorage.getItem('Bearer'); // Obtém o token JWT do localStorage
     const headers = new HttpHeaders({
