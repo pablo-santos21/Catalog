@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { Product } from '../../models/product';
 import { CommonModule } from '@angular/common';
 import { ProductService } from '../../core/services/product.service';
@@ -6,18 +6,20 @@ import { Category } from '../../models/category';
 import { PaginatorModule } from 'primeng/paginator';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { PagedResult } from '../../core/services/paged-result';
-import { TableLazyLoadEvent } from 'primeng/table'; // Importar TableLazyLoadEvent
+import { TableLazyLoadEvent } from 'primeng/table';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-produtos',
   standalone: true,
-  imports: [CommonModule, PaginatorModule, ProgressSpinnerModule],
+  imports: [CommonModule, PaginatorModule, ProgressSpinnerModule, RouterModule],
   templateUrl: './produtos.component.html',
   styleUrls: ['./produtos.component.css'],
 })
 export class ProdutosComponent implements OnInit {
   produtos: Product[] = [];
   categoria: Category[] = [];
+  showModal: boolean = false;
   totalRecords: number = 0;
 
   first: number = 0; // Índice inicial
@@ -50,5 +52,31 @@ export class ProdutosComponent implements OnInit {
     const rowCount = this.rows !== null ? this.rows : 10; // Usar 10 se rows for null
 
     this.loadProducts(this.first, rowCount); // Recarrega os produtos para a nova página
+  }
+
+  //Modal
+  showProductModal(): void {
+    this.showModal = true;
+  }
+
+  closeModal(): void {
+    this.showModal = false;
+  }
+
+  @HostListener('window:keydown', ['$event'])
+  handleKeyboardEvent(event: KeyboardEvent): void {
+    if (event.key === 'Escape') {
+      this.closeModal();
+    }
+  }
+
+  onBackdropClick(event: MouseEvent): void {
+    console.log('Backdrop clicked');
+    const modal = document.getElementById('modalProd');
+    const clickedInsideModal = modal && modal.contains(event.target as Node);
+    console.log('Clicked inside modal:', clickedInsideModal);
+    if (!clickedInsideModal) {
+      this.closeModal();
+    }
   }
 }

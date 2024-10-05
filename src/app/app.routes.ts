@@ -32,6 +32,7 @@ import { ResetpasswordComponent } from './pages/resetpassword/resetpassword.comp
 import { TrocarSenhaComponent } from './painel/perfil/trocar-senha/trocar-senha.component';
 import { SocialComponent } from './painel/perfil/social/social.component';
 import { FornecedorComponent } from './painel/perfil/fornecedor/fornecedor.component';
+import { ProdutoDetalhadoComponent } from './pages/produtos/produto-detalhado/produto-detalhado.component';
 
 export const routes: Routes = [
   {
@@ -52,6 +53,11 @@ export const routes: Routes = [
         path: 'produtos',
         component: ProdutosComponent,
         title: 'Produtos - Tesouros da Terra',
+      },
+      {
+        path: 'detalhe-produto',
+        component: ProdutoDetalhadoComponent,
+        title: 'Produto X - Tesouros da Terra',
       },
       {
         path: 'sobre',
