@@ -67,7 +67,7 @@
                 <div class="flip-card-inner">
                     <div class="flip-card-front">
                         <img alt="Card" src="../../../assets/comunidade.svg" width="50%" class="mx-auto" />
-                        <p class="title">Valores</p>
+                        <p class="title">Comunidade</p>
                     </div>
                     <div class="flip-card-back">
                         <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Magni quibusdam molestiae nobis. Modi, velit? Sapiente aspernatur magnam, totam, qui, alias ab harum fugiat ipsum iste dolorem omnis unde maiores nam.</p>
@@ -78,21 +78,15 @@
     </section>
 
     <section id="categorias" class="pb-8">
-        <h2 class=" text-center text-2xl font-bold">Nossas categorias</h2>
-        <p-carousel [value]="category" [numVisible]="6" [numScroll]="1" [circular]="true" autoplayInterval="1500">
+        <h2 class=" text-center text-2xl font-bold pb-8">Nossas categorias</h2>
+        <p-carousel [value]="category" [numVisible]="4" [numScroll]="1" [circular]="true" autoplayInterval="4000">
             <ng-template let-category pTemplate="item">
                 <div class="border-1 surface-border border-round m-2 p-3">
-                    <div class="mb-3">
-                        <div class="relative mx-auto">
-                            <img [src]="'../../../assets/' + category.slug + '.png'" [alt]="category.name" class="w-full border-round" />
-                        </div>
-                    </div>
-                    <div class="mb-3 font-medium">
+
+                    <div class="mb-3 text-2xl font-medium">
                         {{ category.name }}
                     </div>
-                    <div class="mb-3 font-light">
-                        quant
-                    </div>
+
                 </div>
             </ng-template>
         </p-carousel>
@@ -113,23 +107,24 @@
                 <span aria-hidden="true"> &rarr;</span>
             </a>
         </div>
-        <p-carousel [value]="products" [numVisible]="5" [numScroll]="1" [circular]="true" autoplayInterval="3000">
+        <p-carousel [value]="products" [numVisible]="5" [numScroll]="1" [circular]="false" autoplayInterval="3000">
             <ng-template let-products pTemplate="item">
                 <div class="border-1 surface-border border-round m-2 p-3">
                     <a href='produto/{{products.slug}}'>
                         <div class="mb-3">
                             <div class="relative mx-auto">
-                                <img [src]="products.image" [alt]="products.name" class="w-full border-round max-w-60" />
+                                <img src="https://i.ibb.co/KqdgGY4/cosmetic-packaging-mockup-1150-40280.webp" [alt]="products.name" class="w-full border-round max-w-60" />
+                                <!-- [src]="products.image"  -->
                                 <p-tag [value]="" [severity]="" class="absolute" [ngStyle]="{ 'left.px': 5, 'top.px': 5 }" />
                             </div>
                         </div>
                         <div class="mb-3 font-medium">
-                            {{ products.name }}
+                            {{ products.price | currency:'BRL':'symbol' }}
                         </div>
                     </a>
                     <div class="flex justify-content-between align-items-center">
                         <div class="mt-0 font-semibold text-xl">
-                            {{ products.price | currency:'BRL':'symbol' }}
+                            {{ products.name }}
                         </div>
                     </div>
                 </div>
