@@ -1,0 +1,89 @@
+<p-toast [breakpoints]="{ 
+    '767px': { width: '100%', right: '0', left: '20' },
+ }" />
+
+<div class="bg-fundoForm shadow-2xl">
+    <div class="p-4">
+        <div class="bg-red p-4 rounded-md">
+            <div class="flex-auto px-4 lg:px-10 py-10 pt-0">
+                <form (ngSubmit)="onSubmit()">
+
+                    <!-- User Information Section -->
+                    <h6 class="text-blueGray-400 text-sm mt-3 mb-6 font-bold uppercase">
+                        Redes Sociais
+                    </h6>
+                    <div class="flex flex-wrap">
+                        <div class="w-full lg:w-6/12 px-4">
+                            <div class="relative w-full mb-3">
+                                <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2" for="facebook">
+                                    Facebook
+                                </label>
+                                <input type="text" [(ngModel)]="updateSocialDto.facebook" class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" name="facebook" id="facebook" />
+                            </div>
+                        </div>
+
+                        <div class="w-full lg:w-6/12 px-4">
+                            <div class="relative w-full mb-3">
+                                <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2" for="instagram">
+                                    Instagram
+                                </label>
+                                <input type="text" [(ngModel)]="updateSocialDto.instagram" class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" name="instagram" id="instagram" />
+                            </div>
+                        </div>
+
+                        <div class="w-full lg:w-6/12 px-4">
+                            <div class="relative w-full mb-3">
+                                <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2" for="youtube">
+                                    Youtube
+                                </label>
+                                <input type="text" [(ngModel)]="updateSocialDto.youtube" class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" name="youtube" id="youtube" />
+                            </div>
+                        </div>
+
+                        <div class="w-full lg:w-6/12 px-4">
+                            <div class="relative w-full mb-3">
+                                <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2" for="tiktok">
+                                    TikTok
+                                </label>
+                                <input type="text" [(ngModel)]="updateSocialDto.tiktok" class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" name="tiktok" id="tiktok" />
+                            </div>
+                        </div>
+                        <div class="w-full lg:w-6/12 px-4">
+                            <div class="relative w-full mb-3">
+                                <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2" for="whatsapp">
+                                    Whatsapp
+                                </label>
+                                <input type="text" [(ngModel)]="updateSocialDto.whatsapp" class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" name="whatsapp" id="whatsapp" />
+                            </div>
+                        </div>
+
+                        <div class="w-full lg:w-6/12 px-4">
+                            <div class="relative w-full mb-3">
+                                <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2" for="twitter">
+                                    Twitter
+                                </label>
+                                <input type="text" [(ngModel)]="updateSocialDto.twitter" class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" name="twitter" id="twitter" />
+                            </div>
+                        </div>
+                        <div class="w-full lg:w-12/12 px-4">
+                            <div class="relative w-full mb-3">
+                                <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2" for="youtube">
+                                    Outro Link
+                                </label>
+                                <input type="text" [(ngModel)]="updateSocialDto.otherSocial" class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" name="youtube" id="youtube" />
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                    <div class="w-full px-4 mt-4 text-center ">
+                        <button type="submit" class="text-tituloForm font-semibold py-2 px-4 rounded-md border-2 border-bgFild hover:bg-bgFild hover:text-white hover:border-white hover:scale-105 duration-300 shadow-lg">
+                            Atualizar Informações
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

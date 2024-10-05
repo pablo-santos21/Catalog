@@ -1,7 +1,8 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ScheduledEvent } from '../../models/scheduled-event';
+import { PagedResult } from './paged-result';
 
 @Injectable({
   providedIn: 'root',
@@ -12,7 +13,19 @@ export class ScheduledEventService {
   constructor(private client: HttpClient) {}
 
   getScheduledEvent(): Observable<ScheduledEvent[]> {
-    return this.client.get<ScheduledEvent[]>(`${this.apiUrl}/test`);
+    return this.client.get<ScheduledEvent[]>(`${this.apiUrl}/full`);
+  }
+
+  getScheduledEvents(
+    page: number,
+    pageSize: number
+  ): Observable<PagedResult<ScheduledEvent>> {
+    let params = new HttpParams()
+      .set('pageIndex', page)
+      .set('pageSize', pageSize);
+    return this.client.get<PagedResult<ScheduledEvent>>(this.apiUrl, {
+      params,
+    });
   }
 
   // Método para obter um evento por ID

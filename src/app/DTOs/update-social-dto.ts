@@ -1,27 +1,26 @@
-export interface User {
-  // id: string;
-  userName: string;
-  email: string;
-  password: string;
-  clienturi: string;
-  token: string;
-  refreshToken: string;
-
-  CellPhone?: string;
+export interface UpdateSocialDTO {
+  nome?: string;
+  email?: string;
+  cellPhone?: string;
   about?: string;
   enterpriseName?: string;
+
   imagePerfil?: string;
+
+  // Endereço
   addressCity?: string;
-  addressState?: string;
   addressStreet?: string;
+  addressState?: string;
   addressNumber?: string;
   addressComplement?: string;
   addressZipCode?: string;
-  tiktok?: string;
+
+  // Redes sociais
   facebook?: string;
-  twitter?: string;
   youtube?: string;
+  twitter?: string;
   instagram?: string;
+  tiktok?: string;
   whatsapp?: string;
   otherSocial?: string;
 }

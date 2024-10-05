@@ -14,7 +14,7 @@ export class CategoryService {
   // category$?: Observable<Category[]>;
 
   getCategory(): Observable<Category[]> {
-    return this.client.get<Category[]>(`${this.apiUrl}/test`);
+    return this.client.get<Category[]>(`${this.apiUrl}/full`);
   }
 
   // Método para obter uma categoria por ID

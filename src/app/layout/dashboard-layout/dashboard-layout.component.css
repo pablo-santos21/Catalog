@@ -1,0 +1,6 @@
+.ml-64 {
+  margin-left: 16rem; /* 64 Tailwind units */
+}
+.ml-0 {
+  margin-left: 0; /* No margin when sidebar is closed */
+}

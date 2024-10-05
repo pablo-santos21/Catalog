@@ -1,46 +1,103 @@
 <div class="h-96 text-white text-center grid bg-cover bg-[url('https://images.unsplash.com/photo-1683009427540-c5bd6a32abf6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop')]">
-    <div class="col-start-1 row-start-1 bg-gray-800 bg-opacity-70 w-full h-full"></div>
-    <div class="col-start-1 row-start-1 mx-auto my-auto">
-        <h1 class="font-bold text-2xl">Produtos</h1>
-        <p>Something interesting about hero message</p>
-    </div>
+	<div class="col-start-1 row-start-1 bg-gray-800 bg-opacity-70 w-full h-full"></div>
+	<div class="col-start-1 row-start-1 mx-auto my-auto">
+		<h1 class="font-bold text-2xl">Produtos</h1>
+		<p>Something interesting about hero message</p>
+	</div>
 </div>
 
 <!-- component -->
 <div tabindex="0" class="focus:outline-none">
-    <div class="mx-auto container py-8">
-        <!-- Correção: Remover a barra de fechamento -->
+	<div class="mx-auto container py-8">
+		<div class="grid lgl:grid-cols-4 mdl:grid-cols-3 md:grid-cols-2 mx-auto gap-4 items-center lg:justify-between justify-center">
+
+			<div *ngFor="let produto of produtos" tabindex="0" class="bg-white shadow-md rounded-lg max-w-sm dark:bg-fundoForm dark:border-gray-700 mb-4">
+				<<a [routerLink]="['/produto/', produto.slug]">
+					<img class="rounded-t-lg p-8" src="https://i.ibb.co/KqdgGY4/cosmetic-packaging-mockup-1150-40280.webp" alt="product image">
+					</a>
+					<div class="px-5 pb-5">
+						<!-- <a [routerLink]="['/produto/', produto.slug]"> -->
+						<a routerLink="/detalhe-produto">
+							<h3 class="text-gray-900 font-semibold text-xl tracking-tight text-center dark:text-white">{{produto.name}}</h3>
+						</a>
+						<div class="flex items-center mt-2.5 mb-5">
+							<p tabindex="0" class="text-gray-900 font-semibold text-base tracking-tight dark:text-white">{{produto.description}}</p>
+
+							<span class="bg-blue-100 text-blue-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800 ml-3">{{produto.category?.name}}</span>
+						</div>
+						<div class="flex items-center justify-between">
+							<span class="text-3xl font-bold text-gray-900 dark:text-white">{{ produto.price | currency:'BRL':'symbol':'1.2-2' }}</span>
 
 
-        <!-- <p-progressSpinner ariaLabel="loading" /> -->
-        <div class="grid grid-cols-4 mx-auto gap-4 items-center lg:justify-between justify-center">
-            <!-- Card 1 -->
-            <div *ngFor="let produto of produtos" tabindex="0" class="focus:outline-none mx-2 w-72 xl:mb-0 mb-8">
-                <div>
-                    <img alt="person capturing an image" src="https://cdn.tuk.dev/assets/templates/classified/Bitmap (1).png" tabindex="0" class="focus:outline-none w-full h-44" />
-                </div>
-                <div class="bg-white">
-                    <div class="p-4">
-                        <div class="flex items-center">
-                            <a [href]="'http://localhost:4200/produto/' + produto.slug" tabindex="0" class="focus:outline-none text-lg font-semibold">{{produto.name}}</a>
-                        </div>
-                        <p tabindex="0" class="focus:outline-none text-xs text-gray-600 mt-2">{{produto.description}}</p>
-                        <div class="flex mt-4">
-                            <div>
-                                <h3>Preço:</h3>
-                                <p tabindex="0" class="focus:outline-none text-xs text-gray-600 px-2 bg-gray-200 py-1">R$: {{produto.price}}</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="flex items-center justify-between px-4 pt-4">
-                    <div class="bg-yellow-200 py-1.5 px-6 rounded-full">
-                        <p tabindex="0" class="focus:outline-none text-xs text-yellow-700">{{produto.category?.name}}</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <p-paginator (onPageChange)="onPageChange($event)" [first]="first" [rows]="rows" [totalRecords]="totalRecords" [rowsPerPageOptions]="[8, 16, 20]"></p-paginator>
-    </div>
-    <!--- more free and premium Tailwind CSS components at https://tailwinduikit.com/ --->
+							<a (click)="showProductModal()" class="text-white bg-blue-700 hover:bg-blue-800 font-medium rounded-full p-3 text-center dark:bg-bgFild dark:hover:bg-bgFild/50 ">
+								<i class='pi pi-eye text-2xl'></i>
+							</a>
+
+						</div>
+					</div>
+			</div>
+
+
+
+			<!-- <p-progressSpinner ariaLabel="loading" /> -->
+
+		</div>
+		<p-paginator (onPageChange)="onPageChange($event)" [first]="first" [rows]="rows" [totalRecords]="totalRecords" [rowsPerPageOptions]="[8, 16, 20]"></p-paginator>
+
+
+
+
+		<!-- Modal -->
+		<div *ngIf="showModal" (click)="onBackdropClick($event)" class="modal-backdrop fixed z-50 inset-0 bg-gray-900 bg-opacity-90 overflow-y-auto">
+			<div id="modalProd" class="modal-content" (click)="$event.stopPropagation()">
+				<div class="flex items-center justify-center min-h-screen">
+					<div class="bg-gray-400 p-6 rounded-lg shadow-lg max-w-screen-lg w-full">
+						<div class="text-right">
+							<button (click)="closeModal()"><i class="pi pi-times text-xl text-black"></i></button>
+						</div>
+						<div class=" mx-auto flex flex-wrap justify-around">
+							<img alt="ecommerce" class="lg:w-1/2 w-full object-cover object-center rounded border border-gray-200 lg:max-h-72 lg:max-w-72 max-h-64 max-w-64 lg:my-auto m-auto" src="https://i.ibb.co/KqdgGY4/cosmetic-packaging-mockup-1150-40280.webp">
+
+
+							<div class="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
+								<h2 class="text-sm title-font text-gray-100 tracking-widest">NOME DA EMPRESA</h2>
+								<h1 class="text-gray-300 text-3xl title-font font-medium mb-1">The Catcher in the Rye</h1>
+								<div class="flex mb-4">
+									<span class="flex items-center">
+										<p class=" text-2xl text-green-400">R$ 50,36</p>
+									</span>
+
+								</div>
+								<p class="leading-relaxed">Fam locavore kickstarter distillery. Mixtape chillwave tumeric sriracha taximy chia microdosing tilde DIY. XOXO fam indxgo juiceramps cornhole raw denim forage brooklyn. Everyday carry +1 seitan poutine tumeric. Gastropub blue bottle austin listicle pour-over, neutra jean shorts keytar banjo tattooed umami cardigan.</p>
+								<div class="flex mt-6 items-center pb-5 border-b-2 border-gray-200 mb-5">
+									<div class="flex">
+										<span class="mr-3">Em estoque</span>
+										<i class='pi pi-check text-xl font-bold text-green-400 border-2 border-white rounded-full p-1'></i>
+									</div>
+
+								</div>
+							</div>
+						</div>
+
+
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- End Modal -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+	</div>
+
 </div>

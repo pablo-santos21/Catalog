@@ -12,7 +12,7 @@ export class TypeEventService {
   constructor(private client: HttpClient) {}
 
   getTypeEvent(): Observable<TypeEvent[]> {
-    return this.client.get<TypeEvent[]>(`${this.apiUrl}/test`);
+    return this.client.get<TypeEvent[]>(`${this.apiUrl}/full`);
   }
 
   // Método para obter uma categoria por ID
