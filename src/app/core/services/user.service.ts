@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, tap } from 'rxjs';
@@ -205,7 +205,6 @@ export class UserService {
     return null;
   }
 
-  // Método para buscar informações do usuário pelo ID
   getUser(): Observable<User> {
     const userId = this.getUserIdFromToken();
     if (!userId) {
@@ -214,9 +213,8 @@ export class UserService {
     return this.client.get<User>(`${this.mainUrl}/user/${userId}`); // Faz a requisição com o ID
   }
 
-  // Novo método para atualizar informações do usuário
   updateUser(id: string, updateUserDTO: UpdateUserDTO): Observable<any> {
-    const url = `${this.mainUrl}/user/${id}`; // URL do endpoint para atualizar o usuário
+    const url = `${this.mainUrl}/user/${id}`;
 
     return this.client.put(url, updateUserDTO, {
       headers: new HttpHeaders({
@@ -240,5 +238,19 @@ export class UserService {
         headers,
       }
     );
+  }
+
+  addUserToRole(email: string, roleName: string): Observable<any> {
+    const url = `${this.userUrl}/addusertorole?email=${encodeURIComponent(
+      email
+    )}&roleName=${encodeURIComponent(roleName)}`;
+
+    const token = localStorage.getItem('Bearer'); // Recupera o token JWT do localStorage
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`,
+      Accept: '*/*', // Define o cabeçalho Accept
+    });
+
+    return this.client.post(url, {}, { headers }); // Envia a requisição POST com os parâmetros e cabeçalhos
   }
 }

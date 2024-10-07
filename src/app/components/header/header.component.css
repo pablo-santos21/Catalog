@@ -1,0 +1,10 @@
+nav {
+  display: none;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+
+nav.opacity-100 {
+  display: flex;
+  opacity: 1;
+}
