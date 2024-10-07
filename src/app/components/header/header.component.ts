@@ -12,6 +12,17 @@ import { UserService } from '../../core/services/user.service';
 export class HeaderComponent {
   menuOpen = false;
   isLoggedIn = false;
+  menuVisible: boolean = false;
+
+  @HostListener('window:scroll', [])
+  onWindowScroll() {
+    const scrollPosition =
+      window.pageYOffset ||
+      document.documentElement.scrollTop ||
+      document.body.scrollTop ||
+      0;
+    this.menuVisible = scrollPosition > 100;
+  }
 
   constructor(private userService: UserService) {}
 

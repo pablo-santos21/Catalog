@@ -26,7 +26,12 @@
                     <i class='pi pi-shop mr-3'></i>
                     <span class="text-sm">Torne-se Vendedor(a)</span>
                 </a>
-
+                <div *ngIf="userRole === 'SuperUser' || userRole === 'Admin'">
+                    <a routerLink="/tornar-vendedor" class="header-style ">
+                        <i class='pi pi-shop mr-3'></i>
+                        <span class="text-sm">Tornar Vendedor(a)</span>
+                    </a>
+                </div>
             </li>
         </div>
 

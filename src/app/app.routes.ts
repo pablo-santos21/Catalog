@@ -33,6 +33,7 @@ import { TrocarSenhaComponent } from './painel/perfil/trocar-senha/trocar-senha.
 import { SocialComponent } from './painel/perfil/social/social.component';
 import { FornecedorComponent } from './painel/perfil/fornecedor/fornecedor.component';
 import { ProdutoDetalhadoComponent } from './pages/produtos/produto-detalhado/produto-detalhado.component';
+import { TornarVendedorComponent } from './painel/perfil/tornar-vendedor/tornar-vendedor.component';
 
 export const routes: Routes = [
   {
@@ -177,6 +178,11 @@ export const routes: Routes = [
       {
         path: 'vendedor',
         component: FornecedorComponent,
+        title: 'Solicitar cargo de vendedor - Tesouros da Terra',
+      },
+      {
+        path: 'tornar-vendedor',
+        component: TornarVendedorComponent,
         title: 'Troca de cargo - Tesouros da Terra',
       },
     ],
