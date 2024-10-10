@@ -48,9 +48,9 @@ export class LoginComponent implements OnInit {
         const role = payload.role;
         if (
           role === 'Admin' ||
-          role === 'Seller' ||
-          role === 'SuperUser' ||
-          role === 'Customer'
+          role === 'Vendedor' ||
+          role === 'Moderador' ||
+          role === 'Cliente'
         ) {
           this.router.navigate(['/dashboard']);
         } else {

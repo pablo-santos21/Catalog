@@ -125,7 +125,7 @@ export class UserService {
     email: string,
     password: string,
     clienturi: string = `${this.userUrl}/ConfirmEmail`,
-    role: string = 'Customer'
+    role: string = 'Cliente'
   ): Observable<User> {
     return this.client
       .post<User>(`${this.userUrl}/register`, {

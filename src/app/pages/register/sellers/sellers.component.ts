@@ -84,7 +84,7 @@ export class SellersComponent {
     this.userExists = false;
 
     this.userService
-      .register(this.userName, this.email, this.password, undefined, 'Seller')
+      .register(this.userName, this.email, this.password, undefined, 'Vendedor')
       .subscribe({
         next: (response) => {
           console.log('User registered successfully', response);
