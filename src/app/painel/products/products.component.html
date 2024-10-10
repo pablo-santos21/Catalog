@@ -7,7 +7,7 @@
 <!-- Lista de categorias -->
 <div class="bg-gray-50 min-h-screen">
     <div class="p-4">
-        <div class="bg-white p-4 rounded-md">
+        <div class="bg-fundoForm p-4 rounded-md shadow-origamid">
             <div>
                 <div class="flex flex-row justify-between py-2">
                     <h2 class=" mx-0 my-auto text-xl font-bold text-gray-700">Produtos</h2>
@@ -38,21 +38,23 @@
                     <div class="flex m-auto">
                         <p-progressSpinner *ngIf="isLoading" ariaLabel="loading" class="m-auto" />
                     </div>
-                    <tbody *ngFor="let product of products" class=" border-t text-sm font-normal px-4 block md:table-row-group overflow-y-scroll">
+                    <tbody *ngFor="let product of products" class=" border-b text-sm font-normal px-4 block md:table-row-group overflow-y-scroll">
 
                         <tr class="w-full border border-grey-500 md:border-none block md:table-row">
-                            <td class="p-4  md:border md:border-grey-500 text-left block md:table-cell"><span class="inline-block w-1/3 md:hidden font-bold">id</span>#{{ product.id }}</td>
-                            <td class="p-4 md:border md:border-grey-500 text-left block md:table-cell lg:flex lg:justify-center"><span class="inline-block w-1/3 md:hidden font-bold">Imagem</span><img [src]="product.image" alt="Imagem do produto" width="50" height="50" class="  max-w-xs md:max-w-sm" /></td>
-                            <!-- <td class="p-4  md:border md:border-grey-500 text-left block md:table-cell"><img [src]="product.description" alt="Imagem do produto" class="inline-block w-1/3 md:hidden font-bold" /><span>imagem</span></td> -->
-                            <td class="p-4  md:border md:border-grey-500 text-left block md:table-cell"><span class="inline-block w-1/3 md:hidden font-bold">Nome</span>{{ product.name }}</td>
-                            <td class="p-4  md:border md:border-grey-500 text-left block md:table-cell"><span class="inline-block w-1/3 md:hidden font-bold">Descrição</span>{{ product.description }}</td>
-                            <td class="p-4  md:border md:border-grey-500 text-left block md:table-cell"><span class="inline-block w-1/3 md:hidden font-bold">Preço</span>R${{ product.price }}</td>
-                            <td class="p-4  md:border md:border-grey-500 text-left block md:table-cell"><span class="inline-block w-1/3 md:hidden font-bold">Categoria</span>{{ product.categoryId }}</td>
-                            <td class="p-4  md:border md:border-grey-500 text-left block md:table-cell"><span class="inline-block w-1/3 md:hidden font-bold">Slug</span>{{ product.slug }}</td>
-                            <td class="p-4  md:border md:border-grey-500 text-left block md:table-cell">
+                            <td class="p-4  text-left block md:table-cell border-l border-gray-50"><span class="inline-block w-1/3 md:hidden font-bold">id</span>#{{ product.id }}</td>
+                            <td class="p-4 text-left block md:table-cell lg:flex lg:justify-center"><span class="inline-block w-1/3 md:hidden font-bold">Imagem</span><img [src]="product.image" alt="Imagem do produto" width="100" height="100" class="  max-w-full max-h-16 md:max-w-sm object-cover object-center" /></td>
+                            <!-- <td class="p-4  text-left block md:table-cell"><img [src]="product.description" alt="Imagem do produto" class="inline-block w-1/3 md:hidden font-bold" /><span>imagem</span></td> -->
+                            <td class="p-4  text-left block md:table-cell"><span class="inline-block w-1/3 md:hidden font-bold">Nome</span>{{ product.name }}</td>
+                            <td class="p-4  text-left block md:table-cell"><span class="inline-block w-1/3 md:hidden font-bold">Descrição</span>{{ product.description }}</td>
+                            <td class="p-4  text-left block md:table-cell"><span class="inline-block w-1/3 md:hidden font-bold">Preço</span>R${{ product.price }}</td>
+                            <td class="p-4  text-left block md:table-cell"><span class="inline-block w-1/3 md:hidden font-bold">Categoria</span>{{ product.category?.name }}</td>
+                            <td class="p-4  text-left block md:table-cell"><span class="inline-block w-1/3 md:hidden font-bold">Slug</span>{{ product.slug }}</td>
+                            <td class="p-4 text-left block md:table-cell border-r border-gray-50">
                                 <span class="inline-block w-1/3 md:hidden font-bold">opções</span>
-                                <button (click)="editProductModal(product)" type="button" class="mr-3 text-sm bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">Editar</button>
-                                <button (click)="deleteProduct(product.id)" (onClick)="showError()" type="button" class="text-sm bg-red-500 hover:bg-red-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">Deletar</button>
+                                <a (click)="editProductModal(product)" class="text-sm text-bgPrimary py-2 px-4 rounded hover:text-gray-600 mr-2 cursor-pointer"><i class='pi pi-pencil text-lg'></i></a>
+
+                                <a (click)="deleteProduct(product.id)" (onClick)="showError()" class="text-sm text-bgPrimary py-2 px-4 rounded hover:text-gray-600 cursor-pointer"><i class='pi pi-trash text-lg'></i></a>
+
                             </td>
                         </tr>
 
@@ -100,10 +102,10 @@
                         <p-inputSwitch formControlName="isActive"></p-inputSwitch>
                     </div>
 
-                    <div class="mb-4">
+                    <!-- <div class="mb-4">
                         <label for="image" class="block text-sm font-medium text-gray-700">Imagem</label>
                         <p-fileUpload mode="basic" name="image" formControlName="image" [auto]="true" accept=".jpg,.jpeg,.png,.gif" maxFileSize="5000000" (onUpload)="onBasicUploadAuto($event)" chooseLabel="Escolher Imagem"></p-fileUpload>
-                    </div>
+                    </div> -->
 
                     <div class="flex justify-end">
                         <button type="button" class="px-4 py-2 bg-gray-500 text-white rounded-md mr-2" (click)="closeModal()">Cancelar</button>

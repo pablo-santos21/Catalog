@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../../core/services/user.service';
 import { FormsModule } from '@angular/forms';
-import { UpdateSocialDTO } from '../../../DTOs/update-social-dto';
 import { User } from '../../../models/user';
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
+import { UpdateUserDTO } from '../../../DTOs/update-user-dto';
 
 @Component({
   selector: 'app-social',
@@ -16,7 +16,7 @@ import { ToastModule } from 'primeng/toast';
 })
 export class SocialComponent implements OnInit {
   user: User | null = null;
-  updateSocialDto: UpdateSocialDTO = {};
+  updateUserDTO: UpdateUserDTO = {};
 
   constructor(
     private userService: UserService,
@@ -50,8 +50,8 @@ export class SocialComponent implements OnInit {
       this.userService.getUser().subscribe(
         (user) => {
           this.user = user;
-          // Atualiza updateSocialDto com as redes sociais do usuário
-          this.updateSocialDto = {
+          // Atualiza updateUserDTO com as redes sociais do usuário
+          this.updateUserDTO = {
             tiktok: user.tiktok || '',
             facebook: user.facebook || '',
             twitter: user.twitter || '',
@@ -75,24 +75,25 @@ export class SocialComponent implements OnInit {
 
     if (userId) {
       const updateDto = {
-        ...this.updateSocialDto,
-        about: this.updateSocialDto.about || '',
-        enterpriseName: this.updateSocialDto.enterpriseName || '',
-        imagePerfil: this.updateSocialDto.imagePerfil || '',
-        cellPhone: this.updateSocialDto.cellPhone || '',
-        addressStreet: this.updateSocialDto.addressStreet || '',
-        addressCity: this.updateSocialDto.addressCity || '',
-        addressState: this.updateSocialDto.addressState || '',
-        addressNumber: this.updateSocialDto.addressNumber || '',
-        addressComplement: this.updateSocialDto.addressComplement || '',
-        addressZipCode: this.updateSocialDto.addressZipCode || '',
-        facebook: this.updateSocialDto.facebook || '',
-        youtube: this.updateSocialDto.youtube || '',
-        twitter: this.updateSocialDto.twitter || '',
-        tiktok: this.updateSocialDto.tiktok || '',
-        instagram: this.updateSocialDto.instagram || '',
-        whatsapp: this.updateSocialDto.whatsapp || '',
-        otherSocial: this.updateSocialDto.otherSocial || '',
+        ...this.updateUserDTO,
+        about: this.updateUserDTO.about || '',
+        enterpriseName: this.updateUserDTO.enterpriseName || '',
+        imagePerfil: this.updateUserDTO.imagePerfil || '',
+        cellPhone: this.updateUserDTO.cellPhone || '',
+        addressStreet: this.updateUserDTO.addressStreet || '',
+        addressCity: this.updateUserDTO.addressCity || '',
+        addressState: this.updateUserDTO.addressState || '',
+        addressNumber: this.updateUserDTO.addressNumber || '',
+        addressComplement: this.updateUserDTO.addressComplement || '',
+        addressZipCode: this.updateUserDTO.addressZipCode || '',
+        addressNeighborhood: this.updateUserDTO.addressNeighborhood || '',
+        facebook: this.updateUserDTO.facebook || '',
+        youtube: this.updateUserDTO.youtube || '',
+        twitter: this.updateUserDTO.twitter || '',
+        tiktok: this.updateUserDTO.tiktok || '',
+        instagram: this.updateUserDTO.instagram || '',
+        whatsapp: this.updateUserDTO.whatsapp || '',
+        otherSocial: this.updateUserDTO.otherSocial || '',
       };
 
       this.userService.updateSocial(userId, updateDto).subscribe(

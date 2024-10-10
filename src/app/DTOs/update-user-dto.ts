@@ -1,5 +1,5 @@
 export interface UpdateUserDTO {
-  nome?: string;
+  userName?: string;
   email?: string;
   cellPhone?: string;
   about?: string;
@@ -14,6 +14,7 @@ export interface UpdateUserDTO {
   addressNumber?: string;
   addressComplement?: string;
   addressZipCode?: string;
+  addressNeighborhood?: string;
 
   // Redes sociais
   facebook?: string;

@@ -1,4 +1,4 @@
-<div class="h-96 text-white text-center grid bg-cover bg-[url('https://images.unsplash.com/photo-1683009427540-c5bd6a32abf6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop')]">
+<div class="h-96 text-white text-center grid bg-cover bg-produtos">
     <div class="col-start-1 row-start-1 bg-gray-800 bg-opacity-70 w-full h-full"></div>
     <div class="col-start-1 row-start-1 mx-auto my-auto">
         <h1 class="font-bold text-2xl">Detalhes do produto</h1>
@@ -9,72 +9,81 @@
 <section class="text-gray-200 body-font overflow-hidden">
     <div class="container px-5 py-24 mx-auto">
         <div class="lg:w-4/5 mx-auto flex flex-wrap">
-            <img alt="ecommerce" class="lg:w-1/2 w-full object-cover object-center rounded border border-gray-200" src="https://i.ibb.co/KqdgGY4/cosmetic-packaging-mockup-1150-40280.webp">
+            <img [alt]="produto?.slug" class="lg:w-1/2 w-full max-h-[34rem] object-cover object-center rounded border border-gray-200" [src]="produto?.image">
 
 
             <div class="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
-                <h2 class="text-sm title-font text-gray-100 tracking-widest">NOME DA EMPRESA</h2>
-                <h1 class="text-gray-300 text-3xl title-font font-medium mb-1">The Catcher in the Rye</h1>
+                <h2 class="text-sm title-font text-gray-100 tracking-widest">{{produto?.category?.name}}</h2>
+                <h1 class="text-gray-300 text-3xl title-font font-medium mb-1">{{produto?.name}}</h1>
                 <div class="flex mb-4">
                     <span class="flex items-center">
-                        <p class=" text-2xl text-green-400">R$ 50,36</p>
+                        <p class=" text-2xl text-green-400">{{ produto?.price | currency:'BRL':'symbol':'1.2-2' }}</p>
                     </span>
 
                 </div>
-                <p class="leading-relaxed">Fam locavore kickstarter distillery. Mixtape chillwave tumeric sriracha taximy chia microdosing tilde DIY. XOXO fam indxgo juiceramps cornhole raw denim forage brooklyn. Everyday carry +1 seitan poutine tumeric. Gastropub blue bottle austin listicle pour-over, neutra jean shorts keytar banjo tattooed umami cardigan.</p>
+                <p class="leading-relaxed">{{produto?.description}}</p>
                 <div class="flex mt-6 items-center pb-5 border-b-2 border-gray-200 mb-5">
                     <div class="flex">
-                        <span class="mr-3">Em estoque</span>
-                        <i class='pi pi-check text-xl font-bold text-green-400 border-2 border-white rounded-full p-1'></i>
+                        <span class="mr-3">Estoque</span>
+
+                        <!-- Se o estoque for maior que 0, exibe o ícone de check -->
+                        <i *ngIf="(produto?.stock ?? 0) > 0" class="pi pi-check font-bold text-green-400 border-2 border-white rounded-full p-1"></i>
+
+                        <!-- Se o estoque for igual a 0, exibe o ícone de times -->
+                        <i *ngIf="(produto?.stock ?? 0) === 0" class="pi pi-times font-bold text-red-400 border-2 border-white rounded-full p-1"></i>
                     </div>
 
                 </div>
 
-                <div class="flex pt-4 justify-between">
+                <div class="flex pt-4 pb-8 justify-between">
                     <div class="flex flex-col gap-2">
                         <h2 class="text-xl font-semibold text-gray-100 tracking-widest">Informações do fornecedor</h2>
 
                         <div class="flex flex-row">
                             <h3 class="text-sm font-semibold text-gray-100 tracking-widest">Nome: &nbsp;</h3>
-                            <p class="text-sm title-font text-gray-100 tracking-widest"> Nome da empresa</p>
+                            <p class="text-sm title-font text-gray-100 tracking-widest"> {{produto?.user?.enterpriseName}}</p>
                         </div>
                         <div class="flex flex-row">
                             <h3 class="text-sm font-semibold text-gray-100 tracking-widest">Telefone: &nbsp;</h3>
-                            <p class="text-sm title-font text-gray-100 tracking-widest"> +55 21 1234-56789</p>
+                            <a [href]="'tel:' + produto?.user?.cellPhone" class="text-sm title-font text-gray-100 tracking-widest">{{produto?.user?.cellPhone}}</a>
                         </div>
                         <div class="flex flex-row">
-                            <h3 class="text-sm font-semibold text-gray-100 tracking-widest">Endereço: &nbsp;</h3>
-                            <p class="text-sm title-font text-gray-100 tracking-widest"> Rua minha, 41, fundos</p>
+                            <h3 class="text-sm font-semibold text-gray-100 tracking-widest">Estado: &nbsp;</h3>
+                            <p class="text-sm title-font text-gray-100 tracking-widest"> {{produto?.user?.addressState}}</p>
                         </div>
                         <div class="flex flex-row">
                             <h3 class="text-sm font-semibold text-gray-100 tracking-widest">Bairro: &nbsp;</h3>
-                            <p class="text-sm title-font text-gray-100 tracking-widest"> Belem do Tengo</p>
+                            <p class="text-sm title-font text-gray-100 tracking-widest"> {{produto?.user?.addressComplement}}</p>
                         </div>
                         <div class="flex flex-row">
                             <h3 class="text-sm font-semibold text-gray-100 tracking-widest">Site do fornecedor: &nbsp;</h3>
-                            <p class="text-sm title-font text-gray-100 tracking-widest"> site.com.br</p>
+                            <a [href]="'https://' + produto?.user?.otherSocial" target="_blank" class="text-sm title-font text-gray-100 tracking-widest">{{produto?.user?.otherSocial}}</a>
                         </div>
                     </div>
-                    <span class="flex ml-3 pl-3 py-2">
-                        <a class="text-gray-400">
-                            <svg fill="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-5 h-5" viewBox="0 0 24 24">
-                                <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"></path>
-                            </svg>
-                        </a>
-                        <a class="ml-2 text-gray-400">
-                            <svg fill="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-5 h-5" viewBox="0 0 24 24">
-                                <path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"></path>
-                            </svg>
-                        </a>
-                        <a class="ml-2 text-gray-400">
-                            <svg fill="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-5 h-5" viewBox="0 0 24 24">
-                                <path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"></path>
-                            </svg>
-                        </a>
-                    </span>
-
-
                 </div>
+
+                <div class="flex flex-row gap-2 justify-between">
+
+                    <a [href]="'https://wa.me/55' + produto?.user?.whatsapp" target="_blank" class="text-gray-400 p-2 hover:text-gray-300">
+                        <i class="pi pi-whatsapp text-2xl"></i>
+                    </a>
+                    <a [href]="'https://www.instagram.com/' + produto?.user?.instagram" target="_blank" class="text-gray-400 p-2 hover:text-gray-300">
+                        <i class="pi pi-instagram text-2xl"></i>
+                    </a>
+                    <a [href]="'https://www.facebook.com/' + produto?.user?.whatsapp" target="_blank" class="text-gray-400 p-2 hover:text-gray-300">
+                        <i class="pi pi-facebook text-2xl"></i>
+                    </a>
+                    <a [href]="'https://www.youtube.com/' + produto?.user?.whatsapp" target="_blank" class="text-gray-400 p-2 hover:text-gray-300">
+                        <i class="pi pi-youtube text-2xl"></i>
+                    </a>
+                    <a [href]="'https://www.tiktok.com/@' + produto?.user?.whatsapp" target="_blank" class="text-gray-400 p-2 hover:text-gray-300">
+                        <i class="pi pi-tiktok text-2xl"></i>
+                    </a>
+                    <a [href]="'https://twitter.com/' + produto?.user?.whatsapp" target="_blank" class="text-gray-400 p-2 hover:text-gray-300">
+                        <i class="pi pi-twitter text-2xl"></i>
+                    </a>
+                </div>
+
             </div>
         </div>
     </div>

@@ -28,7 +28,7 @@
 }
 
 .sobre-bg {
-  background-image: url("../../../assets/background/prato.png");
+  background-image: url("../../../assets/background/ratatouille.jpg");
   position: relative;
   z-index: 1;
 }
@@ -75,7 +75,7 @@
 
 .flip-card-front,
 .flip-card-back {
-  box-shadow: 0 8px 14px 0 rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 8px 6px rgba(255, 255, 255, 0.3);
   position: absolute;
   display: flex;
   flex-direction: column;
@@ -84,7 +84,7 @@
   height: 100%;
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
-  border: 1px solid white;
+  border: 2px solid white;
   border-radius: 1rem;
 }
 

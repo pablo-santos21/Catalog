@@ -16,13 +16,33 @@ export class ScheduledEventService {
     return this.client.get<ScheduledEvent[]>(`${this.apiUrl}/full`);
   }
 
-  getScheduledEvents(
+  GetAllEventAsync(): Observable<ScheduledEvent[]> {
+    return this.client.get<ScheduledEvent[]>(`${this.apiUrl}/eventos`);
+  }
+
+  GetAllEventPagAsync(
     page: number,
     pageSize: number
   ): Observable<PagedResult<ScheduledEvent>> {
     let params = new HttpParams()
       .set('pageIndex', page)
       .set('pageSize', pageSize);
+    return this.client.get<PagedResult<ScheduledEvent>>(
+      `${this.apiUrl}/eventotipo`,
+      {
+        params,
+      }
+    );
+  }
+
+  getScheduledEvents(
+    page: number,
+    pageSize: number
+  ): Observable<PagedResult<ScheduledEvent>> {
+    let params = new HttpParams()
+      .set('pageIndex', page)
+      .set('pageSize', pageSize)
+      .set('occurred', 'false');
     return this.client.get<PagedResult<ScheduledEvent>>(this.apiUrl, {
       params,
     });

@@ -1,1 +1,62 @@
-<p>fornecedor works!</p>
+<div class="bg-fundoForm shadow-origamid">
+    <div class="p-4">
+        <div class="bg-fundoForm text-darkText p-4 rounded-md">
+            <div class="flex flex-row py-2">
+                <h2 class="mx-0 my-auto text-xl font-bold text-tituloForm">Cadastro de Empresa</h2>
+            </div>
+
+            <div class="flex-auto px-4 lg:px-10 py-10 pt-0">
+                <form [formGroup]="companyForm" (ngSubmit)="onSubmit()">
+                    <div class="flex flex-wrap">
+
+                        <div class="w-full lg:w-6/12 md:w-6/12 px-4">
+                            <div class="relative w-full mb-3">
+                                <label for="companyName">Nome da Empresa</label>
+                                <input pInputText id="companyName" name="companyName" class="input-style placeholder-blueGray-300 text-blueGray-600" formControlName="companyName" />
+                                <small *ngIf="companyForm.get('companyName')?.invalid && companyForm.get('companyName')?.touched" class="p-error">Nome da empresa é obrigatório.</small>
+                            </div>
+                        </div>
+
+
+                        <div class="w-full lg:w-6/12 md:w-6/12 px-4">
+                            <div class="relative w-full mb-3">
+                                <label for="email">Email Cadastrado</label>
+                                <input pInputText id="email" name="email" class="input-style placeholder-blueGray-300 text-blueGray-600" formControlName="email" type="email" />
+                                <small *ngIf="companyForm.get('email')?.invalid && companyForm.get('email')?.touched" class="p-error">Email inválido.</small>
+                            </div>
+                        </div>
+
+
+                        <div class="w-full lg:w-6/12 md:w-6/12 px-4">
+                            <div class="relative w-full mb-3">
+                                <label for="contactNumber">Número de Contato</label>
+                                <input pInputText id="contactNumber" name="contactNumber" class="input-style placeholder-blueGray-300 text-blueGray-600" formControlName="contactNumber" type="tel" />
+                                <small *ngIf="companyForm.get('contactNumber')?.invalid && companyForm.get('contactNumber')?.touched" class="p-error">Número de contato é obrigatório.</small>
+                            </div>
+                        </div>
+
+
+                        <div class="w-full lg:w-12/12 md:w-12/12 px-4">
+                            <div class="relative w-full mb-3">
+                                <label for="aboutCompany">Conte-nos sobre a empresa</label>
+                                <textarea rows="5" pInputTextarea id="aboutCompany" name="aboutCompany" class="input-style placeholder-blueGray-300 text-blueGray-600" formControlName="aboutCompany"></textarea>
+                                <small *ngIf="companyForm.get('aboutCompany')?.invalid && companyForm.get('aboutCompany')?.touched" class="p-error">Informações sobre a empresa são obrigatórias.</small>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="w-full px-4 mt-4 text-center">
+                        <button type="submit" [disabled]="companyForm.invalid" class="text-tituloForm font-semibold py-2 px-4 rounded-md border-2 border-bgFild hover:bg-bgFild hover:text-white hover:border-white hover:scale-105 duration-300 shadow-lg">
+                            Enviar Cadastro
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="flex justify-end">
+                <img class="max-w-14" src="../../../assets/teste.svg" alt="Tesouros da Terra" />
+            </div>
+        </div>
+    </div>
+</div>

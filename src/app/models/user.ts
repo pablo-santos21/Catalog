@@ -7,7 +7,7 @@ export interface User {
   token: string;
   refreshToken: string;
 
-  CellPhone?: string;
+  cellPhone?: string;
   about?: string;
   enterpriseName?: string;
   imagePerfil?: string;
@@ -17,6 +17,7 @@ export interface User {
   addressNumber?: string;
   addressComplement?: string;
   addressZipCode?: string;
+  addressNeighborhood?: string;
   tiktok?: string;
   facebook?: string;
   twitter?: string;

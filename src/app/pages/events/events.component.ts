@@ -28,17 +28,17 @@ export class EventsComponent implements OnInit {
   currentIndex: number = 0;
   events = [
     {
-      image: '../../../assets/background/testesd.png',
+      image: '../../../assets/background/arlivre.jpg',
       title: 'Evento Natureza',
       description: 'Explore a beleza da natureza no nosso próximo evento!',
     },
     {
-      image: '../../../assets/background/image.png',
+      image: '../../../assets/background/eventos.jpg',
       title: 'Evento na Cidade',
       description: 'Descubra novos lugares na cidade com amigos e família!',
     },
     {
-      image: '../../../assets/background/prato.png',
+      image: '../../../assets/background/passeios.jpg',
       title: 'Aventura ao Ar Livre',
       description: 'Uma experiência única de aventura ao ar livre!',
     },
@@ -61,7 +61,7 @@ export class EventsComponent implements OnInit {
   loadEvents(pageIndex: number, pageSize: number): void {
     const page = pageIndex / pageSize + 1;
     this.service
-      .getScheduledEvents(page, pageSize)
+      .GetAllEventPagAsync(page, pageSize)
       .subscribe((data: PagedResult<ScheduledEvent>) => {
         this.eventos = data.itens; // Verifique se 'itens' é o nome correto no seu backend
         this.totalRecords = data.totalCount; // totalCount para a paginação

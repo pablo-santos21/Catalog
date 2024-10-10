@@ -4,7 +4,6 @@ import { Router } from '@angular/router';
 import { Observable, tap } from 'rxjs';
 import { User } from '../../models/user';
 import { UpdateUserDTO } from '../../DTOs/update-user-dto';
-import { UpdateSocialDTO } from '../../DTOs/update-social-dto';
 
 @Injectable({
   providedIn: 'root',
@@ -28,7 +27,7 @@ export class UserService {
           if (response.token) {
             this.setToken(response.token);
             this.setRefreshToken(response.refreshToken);
-            this.autoRefreshToken();
+            // this.autoRefreshToken();
           }
         })
       );
@@ -42,9 +41,21 @@ export class UserService {
     return localStorage.getItem(this.tokenKey);
   }
 
+  getRefreshToken(): string | null {
+    if (typeof window !== 'undefined') {
+      return localStorage.getItem(this.refreshTokenKey);
+    } else {
+      return null;
+    }
+  }
+
   refreshToken(): Observable<User> {
     const refreshToken = this.getRefreshToken();
     const accessToken = this.getToken();
+
+    if (!accessToken || !refreshToken) {
+      this.logout();
+    }
 
     return this.client
       .post<User>(`${this.refreshUrl}/refresh-token`, {
@@ -77,7 +88,7 @@ export class UserService {
     const payload = JSON.parse(atob(token.split('.')[1]));
     const expiration = payload.exp * 1000;
 
-    const timeout = expiration - Date.now() - 60 * 1000;
+    const timeout = expiration - Date.now() - 2 * 60 * 1000;
 
     setTimeout(() => {
       this.refreshToken().subscribe();
@@ -88,14 +99,6 @@ export class UserService {
     localStorage.setItem(this.refreshTokenKey, token);
   }
 
-  getRefreshToken(): string | null {
-    if (typeof window !== 'undefined') {
-      return localStorage.getItem(this.refreshTokenKey);
-    } else {
-      return null;
-    }
-  }
-
   isAuthenticated(): boolean {
     const token = this.getToken();
     if (!token) {
@@ -104,6 +107,10 @@ export class UserService {
 
     const payload = JSON.parse(atob(token.split('.')[1]));
     const expiration = payload.exp * 1000;
+    const isExpiringSoon = expiration - Date.now() < 2 * 60 * 1000; // Considerar renovação se faltam 2 min
+    if (isExpiringSoon) {
+      this.refreshToken().subscribe();
+    }
     return Date.now() < expiration;
   }
 
@@ -117,7 +124,8 @@ export class UserService {
     userName: string,
     email: string,
     password: string,
-    clienturi: string = `${this.userUrl}/ConfirmEmail`
+    clienturi: string = `${this.userUrl}/ConfirmEmail`,
+    role: string = 'Customer'
   ): Observable<User> {
     return this.client
       .post<User>(`${this.userUrl}/register`, {
@@ -125,6 +133,7 @@ export class UserService {
         email,
         password,
         clienturi,
+        role,
       })
       .pipe(
         tap((response) => {
@@ -223,15 +232,12 @@ export class UserService {
     });
   }
 
-  updateSocial(
-    id: string,
-    social: UpdateSocialDTO
-  ): Observable<UpdateSocialDTO> {
+  updateSocial(id: string, social: UpdateUserDTO): Observable<UpdateUserDTO> {
     const token = localStorage.getItem('Bearer');
     const headers = new HttpHeaders({
       Authorization: `Bearer ${token}`,
     });
-    return this.client.put<UpdateSocialDTO>(
+    return this.client.put<UpdateUserDTO>(
       `${this.mainUrl}/user/${id}`,
       social,
       {

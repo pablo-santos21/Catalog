@@ -54,7 +54,7 @@ export class ProductsComponent implements OnInit {
   products: Product[] = [];
 
   editForm!: FormGroup;
-  categories: Category[] = []; // Populated categories from the API
+  categories: Category[] = [];
 
   editProduct: Product = this.initializeProduct();
   newProduct: Product = this.initializeProduct();
@@ -76,16 +76,11 @@ export class ProductsComponent implements OnInit {
   ngOnInit(): void {
     this.initializeForm();
     this.loadProduct();
-    this.loadCategories();
   }
 
   navigateToCreateProduto() {
     this.router.navigate(['/cadastrar-produto']);
   }
-
-  // navigateToUpdateProduto() {
-  //   this.router.navigate(['/editar-produto']);
-  // }
 
   initializeForm(): void {
     this.editForm = this.fb.group({
@@ -95,7 +90,7 @@ export class ProductsComponent implements OnInit {
       price: [0, [Validators.required, Validators.min(0)]],
       stock: [0, [Validators.required, Validators.min(0)]],
       isActive: [true],
-      image: [''],
+      image: '',
     });
   }
 
@@ -107,7 +102,7 @@ export class ProductsComponent implements OnInit {
       slug: '',
       price: 0,
       stock: 0,
-      image: ['imagem.jpg'],
+      image: 'imagem.jpg',
       isActive: true,
       createdAt: new Date(),
       updatedAt: new Date(),

@@ -22,6 +22,7 @@ import { ProductService } from '../../core/services/product.service';
 export class HomeComponent implements OnInit {
   category: Category[] = [];
   products: Product[] = [];
+  responsiveOptions: any[] | undefined;
 
   // responsiveOptions: any[] | undefined;
 
@@ -39,12 +40,47 @@ export class HomeComponent implements OnInit {
     this.service.getCategory().subscribe((data) => {
       this.category = data;
     });
+    this.responsiveOptions = [
+      {
+        breakpoint: '1400px',
+        numVisible: 6,
+        numScroll: 1,
+      },
+      {
+        breakpoint: '768px',
+        numVisible: 2,
+        numScroll: 2,
+      },
+      {
+        breakpoint: '500px',
+        numVisible: 2,
+        numScroll: 1,
+      },
+    ];
   }
 
   OnProduct() {
     this.produto.getProduct().subscribe((data) => {
       this.products = this.shuffleArray(data); // Chame o método de embaralhamento
     });
+
+    this.responsiveOptions = [
+      {
+        breakpoint: '1400px',
+        numVisible: 5,
+        numScroll: 1,
+      },
+      {
+        breakpoint: '768px',
+        numVisible: 3,
+        numScroll: 3,
+      },
+      {
+        breakpoint: '500px',
+        numVisible: 2,
+        numScroll: 1,
+      },
+    ];
   }
 
   shuffleArray(array: any[]): any[] {
