@@ -40,6 +40,7 @@ module.exports = {
       },
       backgroundImage: {
         produtos: "url('/assets/background/produtos.png')",
+        cadastro: "url('/assets/background/team.jpg')",
       },
     },
     container: {
