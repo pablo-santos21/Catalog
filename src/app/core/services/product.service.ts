@@ -20,6 +20,22 @@ export class ProductService {
     return this.client.get<Product[]>(`${this.apiUrl}/byUser?userId=${userId}`);
   }
 
+  GetProductByNameAsync(slug: string): Observable<Product> {
+    return this.client.get<Product>(`${this.apiUrl}/${slug}`);
+  }
+
+  GetAllProductsAsync(
+    page: number,
+    pageSize: number
+  ): Observable<PagedResult<Product>> {
+    let params = new HttpParams()
+      .set('pageIndex', page)
+      .set('pageSize', pageSize);
+    return this.client.get<PagedResult<Product>>(`${this.apiUrl}/produtoecat`, {
+      params,
+    });
+  }
+
   getProducts(
     page: number,
     pageSize: number
@@ -30,21 +46,13 @@ export class ProductService {
     return this.client.get<PagedResult<Product>>(this.apiUrl, { params });
   }
 
-  // Método para obter um produto por ID
-  getProductById(id: number): Observable<Product> {
-    return this.client.get<Product>(`${this.apiUrl}/${id}`);
-  }
-
-  // Método para adicionar um novo produto
   addProduct(product: Product): Observable<Product> {
-    const token = localStorage.getItem('Bearer'); // Obtém o token JWT do localStorage
+    const token = localStorage.getItem('Bearer');
     const headers = new HttpHeaders({
-      Authorization: `Bearer ${token}`, // Adiciona o token no cabeçalho Authorization
+      Authorization: `Bearer ${token}`,
     });
 
-    return this.client.post<Product>(this.apiUrl, product, {
-      headers,
-    });
+    return this.client.post<Product>(this.apiUrl, product, { headers });
   }
 
   updateProduct(product: Product): Observable<Product> {
@@ -57,11 +65,10 @@ export class ProductService {
     });
   }
 
-  // Método para excluir um produto
   deleteProduct(id: number): Observable<string> {
-    const token = localStorage.getItem('Bearer'); // Obtém o token JWT do localStorage
+    const token = localStorage.getItem('Bearer');
     const headers = new HttpHeaders({
-      Authorization: `Bearer ${token}`, // Adiciona o token no cabeçalho Authorization
+      Authorization: `Bearer ${token}`,
     });
     return this.client.delete<string>(`${this.apiUrl}/${id}`, { headers });
   }

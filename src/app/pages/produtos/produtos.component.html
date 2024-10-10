@@ -1,4 +1,4 @@
-<div class="h-96 text-white text-center grid bg-cover bg-[url('https://images.unsplash.com/photo-1683009427540-c5bd6a32abf6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop')]">
+<div class="h-96 text-white text-center grid bg-cover bg-produtos">
 	<div class="col-start-1 row-start-1 bg-gray-800 bg-opacity-70 w-full h-full"></div>
 	<div class="col-start-1 row-start-1 mx-auto my-auto">
 		<h1 class="font-bold text-2xl">Produtos</h1>
@@ -11,30 +11,38 @@
 	<div class="mx-auto container py-8">
 		<div class="grid lgl:grid-cols-4 mdl:grid-cols-3 md:grid-cols-2 mx-auto gap-4 items-center lg:justify-between justify-center">
 
-			<div *ngFor="let produto of produtos" tabindex="0" class="bg-white shadow-md rounded-lg max-w-sm dark:bg-fundoForm dark:border-gray-700 mb-4">
-				<<a [routerLink]="['/produto/', produto.slug]">
-					<img class="rounded-t-lg p-8" src="https://i.ibb.co/KqdgGY4/cosmetic-packaging-mockup-1150-40280.webp" alt="product image">
+			<div *ngFor="let produto of produtos" tabindex="0" class="bg-fundoForm shadow-md rounded-lg max-w-sm border-gray-700 mb-4">
+
+				<div class="w-full aspect-w-16 aspect-h-9">
+					<a [routerLink]="['/produto/detalhe-produto/', produto.slug]">
+						<img [src]="produto.image" [alt]="produto.slug" class="p-8 rounded-[2.5rem] object-cover w-full max-h-56" />
 					</a>
-					<div class="px-5 pb-5">
-						<!-- <a [routerLink]="['/produto/', produto.slug]"> -->
-						<a routerLink="/detalhe-produto">
-							<h3 class="text-gray-900 font-semibold text-xl tracking-tight text-center dark:text-white">{{produto.name}}</h3>
-						</a>
-						<div class="flex items-center mt-2.5 mb-5">
-							<p tabindex="0" class="text-gray-900 font-semibold text-base tracking-tight dark:text-white">{{produto.description}}</p>
-
-							<span class="bg-blue-100 text-blue-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800 ml-3">{{produto.category?.name}}</span>
-						</div>
-						<div class="flex items-center justify-between">
-							<span class="text-3xl font-bold text-gray-900 dark:text-white">{{ produto.price | currency:'BRL':'symbol':'1.2-2' }}</span>
-
-
-							<a (click)="showProductModal()" class="text-white bg-blue-700 hover:bg-blue-800 font-medium rounded-full p-3 text-center dark:bg-bgFild dark:hover:bg-bgFild/50 ">
-								<i class='pi pi-eye text-2xl'></i>
-							</a>
-
-						</div>
+				</div>
+				<div class="px-5 pb-5">
+					<!-- <a [routerLink]="['/produto/', produto.slug]"> -->
+					<a [routerLink]="['/produto/detalhe-produto/', produto.slug]">
+						<h3 class="text-gray-900 font-semibold text-xl tracking-tight text-center ">{{produto.name}}</h3>
+					</a>
+					<div class="text-center">
+						<span class="bg-designColor text-white text-xs font-semibold px-2.5 py-0.5 rounded text-center">{{produto.category?.name}}</span>
 					</div>
+					<div class="flex items-center mt-2.5 mb-5 justify-between">
+						<p tabindex="0" class="text-gray-900 font-medium text-base tracking-tight ">
+							{{ produto.description && produto.description.length > 50 ? (produto.description.slice(0, 50)) : produto.description }}
+						</p>
+
+
+					</div>
+					<div class="flex items-center justify-between">
+						<span class="text-2xl mdl:text-xl lg:text-2xl font-bold text-gray-900 ">{{ produto.price | currency:'BRL':'symbol':'1.2-2' }}</span>
+
+
+						<a (click)="showProductModal(produto)" class="text-white bg-blue-700 hover:bg-blue-800 font-medium rounded-full p-3 text-center dark:bg-bgFild dark:hover:bg-bgFild/50 ">
+							<i class='pi pi-eye text-2xl'></i>
+						</a>
+
+					</div>
+				</div>
 			</div>
 
 
@@ -42,7 +50,7 @@
 			<!-- <p-progressSpinner ariaLabel="loading" /> -->
 
 		</div>
-		<p-paginator (onPageChange)="onPageChange($event)" [first]="first" [rows]="rows" [totalRecords]="totalRecords" [rowsPerPageOptions]="[8, 16, 20]"></p-paginator>
+		<p-paginator (onPageChange)="onPageChange($event)" [first]="first" [rows]="rows" [totalRecords]="totalRecords" [rowsPerPageOptions]="[8, 16, 20]" class="bg-red-500"></p-paginator>
 
 
 
@@ -51,7 +59,7 @@
 		<div *ngIf="showModal" (click)="onBackdropClick($event)" class="modal-backdrop fixed z-50 inset-0 bg-gray-900 bg-opacity-90 overflow-y-auto">
 			<div id="modalProd" class="modal-content" (click)="$event.stopPropagation()">
 				<div class="flex items-center justify-center min-h-screen">
-					<div class="bg-gray-400 p-6 rounded-lg shadow-lg max-w-screen-lg w-full">
+					<div class="bg-designColor p-6 rounded-lg shadow-lg max-w-screen-lg w-full">
 						<div class="text-right">
 							<button (click)="closeModal()"><i class="pi pi-times text-xl text-black"></i></button>
 						</div>
@@ -60,21 +68,26 @@
 
 
 							<div class="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
-								<h2 class="text-sm title-font text-gray-100 tracking-widest">NOME DA EMPRESA</h2>
-								<h1 class="text-gray-300 text-3xl title-font font-medium mb-1">The Catcher in the Rye</h1>
+								<h2 class="text-sm title-font text-gray-100 tracking-widest py-2">Vendido por: <span class="text-green-400 font-semibold">{{selectedProduct.user?.enterpriseName}}</span></h2>
+								<h1 class="text-gray-300 text-3xl title-font font-medium mb-1 py-2">{{selectedProduct.name}}</h1>
 								<div class="flex mb-4">
 									<span class="flex items-center">
-										<p class=" text-2xl text-green-400">R$ 50,36</p>
+										<p class=" text-2xl text-green-400">{{ selectedProduct.price | currency:'BRL':'symbol':'1.2-2' }}</p>
 									</span>
 
 								</div>
-								<p class="leading-relaxed">Fam locavore kickstarter distillery. Mixtape chillwave tumeric sriracha taximy chia microdosing tilde DIY. XOXO fam indxgo juiceramps cornhole raw denim forage brooklyn. Everyday carry +1 seitan poutine tumeric. Gastropub blue bottle austin listicle pour-over, neutra jean shorts keytar banjo tattooed umami cardigan.</p>
-								<div class="flex mt-6 items-center pb-5 border-b-2 border-gray-200 mb-5">
+								<p class="leading-relaxed">{{selectedProduct.description}}</p>
+								<div class="flex mt-6 items-center pt-5 border-t-2 border-gray-200 justify-between">
 									<div class="flex">
 										<span class="mr-3">Em estoque</span>
-										<i class='pi pi-check text-xl font-bold text-green-400 border-2 border-white rounded-full p-1'></i>
-									</div>
 
+										<!-- Se o estoque for maior que 0, exibe o ícone de check -->
+										<i *ngIf="selectedProduct.stock > 0" class="pi pi-check text-xl font-bold text-green-400 border-2 border-white rounded-full p-1"></i>
+
+										<!-- Se o estoque for igual a 0, exibe o ícone de times -->
+										<i *ngIf="selectedProduct.stock === 0" class="pi pi-times text-xl font-bold text-red-400 border-2 border-white rounded-full p-1"></i>
+									</div>
+									<h2 class="text-sm title-font text-gray-100 tracking-widest py-2"><span class="bg-fundoForm text-designColor font-semibold px-4 py-2 rounded">{{selectedProduct.category?.name}}</span></h2>
 								</div>
 							</div>
 						</div>

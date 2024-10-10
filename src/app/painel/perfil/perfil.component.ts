@@ -17,7 +17,7 @@ import { MessageService } from 'primeng/api';
 export class PerfilComponent implements OnInit {
   user: User | null = null;
   updateUserDto: UpdateUserDTO = {
-    nome: '',
+    userName: '',
     email: '',
     cellPhone: '',
     about: '',
@@ -29,6 +29,7 @@ export class PerfilComponent implements OnInit {
     addressNumber: '',
     addressComplement: '',
     addressZipCode: '',
+    addressNeighborhood: '',
   };
   editMode = false;
 
@@ -65,6 +66,7 @@ export class PerfilComponent implements OnInit {
           this.user = user;
           // Atualiza updateUserDto com dados do usuário
           this.updateUserDto = { ...user }; // Atribui diretamente os dados do usuário
+          console.log(user);
         },
         (error) => {
           console.error('Erro ao buscar informações do usuário:', error);
@@ -76,6 +78,7 @@ export class PerfilComponent implements OnInit {
   }
 
   onSubmit() {
+    console.log('Dados enviados:', this.updateUserDto);
     const userId = this.userService.getUserIdFromToken();
 
     if (userId) {
@@ -91,6 +94,7 @@ export class PerfilComponent implements OnInit {
         addressNumber: this.updateUserDto.addressNumber || '',
         addressComplement: this.updateUserDto.addressComplement || '',
         addressZipCode: this.updateUserDto.addressZipCode || '',
+        addressNeighborhood: this.updateUserDto.addressNeighborhood || '',
         facebook: this.updateUserDto.facebook || '',
         youtube: this.updateUserDto.youtube || '',
         twitter: this.updateUserDto.twitter || '',

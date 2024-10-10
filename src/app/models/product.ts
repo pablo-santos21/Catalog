@@ -1,4 +1,5 @@
 import { Category } from './category';
+import { User } from './user';
 
 export interface Product {
   id: number;
@@ -7,11 +8,12 @@ export interface Product {
   slug?: string;
   price: number;
   stock: number;
-  image?: string[];
+  image?: string;
   isActive: boolean;
   createdAt: Date;
   updatedAt: Date;
   userId?: string;
+  user?: User;
   categoryId: number;
   category?: Category;
 }

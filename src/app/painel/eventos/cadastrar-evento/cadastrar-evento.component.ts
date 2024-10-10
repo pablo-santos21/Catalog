@@ -22,6 +22,8 @@ import { ScheduledEventService } from '../../../core/services/scheduled-event.se
 import { TypeEventService } from '../../../core/services/type-event.service';
 import { CalendarModule } from 'primeng/calendar';
 import { States, State } from '../../../models/Estates';
+import { CommonModule } from '@angular/common';
+import { UploadFileService } from '../../../core/services/upload-file.service';
 
 @Component({
   selector: 'app-cadastrar-evento',
@@ -38,6 +40,7 @@ import { States, State } from '../../../models/Estates';
     FileUploadModule,
     ToastModule,
     CalendarModule,
+    CommonModule,
   ],
   standalone: true,
   styleUrl: './cadastrar-evento.component.css',
@@ -50,6 +53,8 @@ export class CadastrarEventoComponent implements OnInit {
   eventDate: Date[] | undefined;
   states: State[] = States;
   statesDropdown: { label: string; value: State }[] = [];
+  selectedFileName: string | null = null;
+  imageUrl: string = '';
 
   modalOptions = [
     { label: 'Online', value: 'Online' },
@@ -77,6 +82,7 @@ export class CadastrarEventoComponent implements OnInit {
   constructor(
     private messageService: MessageService,
     private scheduledEventService: ScheduledEventService,
+    private uploadFileService: UploadFileService,
     private typeEventService: TypeEventService,
     private router: Router
   ) {}
@@ -143,6 +149,23 @@ export class CadastrarEventoComponent implements OnInit {
     }
   }
 
+  onImageUpload(event: any) {
+    const file = event.target.files[0];
+    if (file) {
+      this.selectedFileName = file.name;
+
+      this.uploadFileService.uploadImageEvent(file).subscribe(
+        (response) => {
+          this.imageUrl = response.url;
+          console.log('Image uploaded and URL returned:', this.imageUrl);
+        },
+        (error) => {
+          console.error('Error uploading image:', error);
+        }
+      );
+    }
+  }
+
   onSubmit() {
     if (this.formGroup.invalid) {
       this.messageService.add({
@@ -169,7 +192,7 @@ export class CadastrarEventoComponent implements OnInit {
       state: formValues.state.value.id,
       neighborhood: formValues.neighborhood,
       linkEvent: formValues.linkEvent,
-      image: formValues.image,
+      image: this.imageUrl,
       eventDate: localEventDate,
       occurred: formValues.occurred,
       slug: this.generateSlug(formValues.title),

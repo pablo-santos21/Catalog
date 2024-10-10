@@ -87,7 +87,6 @@ export class EventosComponent {
     this.initializeForm();
     this.loadScheduledEvents();
     this.loadStates();
-    this.loadTypeEvent();
   }
 
   navigateToCreateEvent() {
@@ -108,12 +107,10 @@ export class EventosComponent {
       state: [this.initializeState(), Validators.required],
       local: [null, Validators.required],
       linkEvent: ['', Validators.required],
-      // eventDate: new Date(),
       eventDate: [new Date(), Validators.required],
       occurred: [false],
       image: [''],
       slug: [''],
-      // state: [null, Validators.required],
     });
   }
 
@@ -153,24 +150,9 @@ export class EventosComponent {
 
   loadStates() {
     this.statesDropdown = States.map((state) => ({
-      label: state.name, // Usando `name` como rótulo
-      value: state, // Passando o objeto `state` completo como valor
+      label: state.name,
+      value: state,
     }));
-  }
-
-  loadTypeEvent(): void {
-    this.typeEventService.getTypeEvent().subscribe(
-      (response: TypeEvent[]) => {
-        this.typeEvent = response.map((event) => ({
-          name: event.name,
-          id: event.id,
-          slug: event.slug,
-        }));
-      },
-      (error) => {
-        console.error('Erro ao carregar os tipos de eventos:', error);
-      }
-    );
   }
 
   // Utility function to generate slugs

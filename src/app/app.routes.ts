@@ -34,6 +34,7 @@ import { SocialComponent } from './painel/perfil/social/social.component';
 import { FornecedorComponent } from './painel/perfil/fornecedor/fornecedor.component';
 import { ProdutoDetalhadoComponent } from './pages/produtos/produto-detalhado/produto-detalhado.component';
 import { TornarVendedorComponent } from './painel/perfil/tornar-vendedor/tornar-vendedor.component';
+import { SellersComponent } from './pages/register/sellers/sellers.component';
 
 export const routes: Routes = [
   {
@@ -56,7 +57,7 @@ export const routes: Routes = [
         title: 'Produtos - Tesouros da Terra',
       },
       {
-        path: 'detalhe-produto',
+        path: 'produto/detalhe-produto/:slug',
         component: ProdutoDetalhadoComponent,
         title: 'Produto X - Tesouros da Terra',
       },
@@ -91,6 +92,12 @@ export const routes: Routes = [
         component: RegisterComponent,
         canActivate: [AuthenticatedGuard],
         title: 'Registrar-se - Tesouros da Terra',
+      },
+      {
+        path: 'registrar-vendedor',
+        component: SellersComponent,
+        canActivate: [AuthenticatedGuard],
+        title: 'Registrar-se como vendedor - Tesouros da Terra',
       },
     ],
   },

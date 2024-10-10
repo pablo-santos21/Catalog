@@ -1,4 +1,4 @@
-<div class="bg-fundoForm shadow-shadowOne ">
+<div class="bg-fundoForm shadow-origamid ">
     <div class="p-4">
         <div class="bg-fundoForm text-white p-4 rounded-md">
             <div class="flex flex-row py-2">
@@ -15,13 +15,6 @@
                             </div>
                         </div>
 
-                        <!-- <div class="w-full lg:w-4/12 md:w-6/12 px-4">
-                            <div class="relative w-full mb-3">
-                                <label for="slug">Slug</label>
-                                <input pInputText id="slug" name="slug" class="input-style placeholder-blueGray-300 text-blueGray-600" formControlName="slug" />
-                            </div>
-                        </div> -->
-
                         <div class="w-full lg:w-4/12 md:w-6/12 px-4">
                             <div class="relative w-full mb-3">
                                 <label for="currency-br">Preço do Produto</label>
@@ -37,11 +30,19 @@
                         </div>
 
                         <div class="w-full lg:w-4/12 md:w-6/12 px-4">
-                            <div class="relative w-full mb-3">
-                                <label for="imagem">Imagem do Produto</label>
-                                <p-fileUpload mode="basic" formControlName="image" chooseIcon="pi pi-upload" url="https://www.primefaces.org/cdn/api/upload.php" accept=".jpg,.jpeg,.png,.gif" maxFileSize="5000000" (onUpload)="onBasicUploadAuto($event)" [auto]="true" chooseLabel="Arquivo" name="imagem" id="imagem" class="p-4"></p-fileUpload>
+                            <div class="relative w-full mb-3 pt-4 text-center">
+                                <input id="fileInput" type="file" accept="image/*" (change)="onImageUpload($event)" class="hidden" />
+                                <label for="fileInput" class="inline-flex items-center px-4 py-2 bg-bgFild border-white border-2 font-semibold text-base rounded-lg shadow-2xl shadow-white hover:bg-green-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 cursor-pointer">
+                                    <span class="text-white">Selecionar Imagem</span>
+                                </label>
+                                <div *ngIf="selectedFileName" class="mt-2 text-sm text-gray-900">
+                                    Arquivo Selecionado: {{ selectedFileName }}
+                                </div>
                             </div>
                         </div>
+
+
+
 
                         <div class="w-full lg:w-4/12 md:w-6/12 px-4">
                             <div class="flex flex-col relative w-full mb-3">
@@ -64,13 +65,6 @@
                             </div>
                         </div>
 
-
-
-                        <!-- <div class="w-full px-4 mt-4">
-                            <button type="submit" class="bg-vridro text-white py-2 px-4 rounded-md w-full">
-                                Cadastrar Produto
-                            </button>
-                        </div> -->
                     </div>
                     <div class="w-full px-4 mt-4 text-center ">
                         <button type="submit" class="text-tituloForm font-semibold py-2 px-4 rounded-md border-2 border-bgFild hover:bg-bgFild hover:text-white hover:border-white hover:scale-105 duration-300 shadow-lg">

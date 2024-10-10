@@ -19,16 +19,16 @@
 </section>
 
 <section id="Sobre" class="pb-8 mx-8">
-    <div class="flex flex-row gap-8">
-        <div class="basis-1/3 sobre-bg imagem bg-cover bg-center text-white content-center">
+    <div class="flex flex-col mdl:flex-row gap-8">
+        <div class="mdl:basis-1/3 sobre-bg imagem bg-cover bg-center text-white content-center shadow-sobre hidden mdl:block">
             <h3 class="text-center text-2xl font-bold">Sobre</h3>
         </div>
-        <div class="basis-2/3 flex flex-col gap-2 text-lg max-w-[60%]">
-            <p>Bem-vindo ao nosso marketplace, criado especialmente para o público vegano da Serra Gaúcha! Nosso objetivo é conectar você a pequenos produtores e fornecedores locais que compartilham dos mesmos valores: o respeito pelos animais, pela natureza e pela saúde. Sabemos o quanto é importante ter acesso a produtos frescos, éticos e sustentáveis, e é por isso que estamos aqui para facilitar essa conexão.</p>
-
-            <p>Nosso marketplace foi pensado para valorizar o trabalho de pequenos produtores e artesãos da nossa região, ajudando a divulgar seus produtos e impulsionar suas vendas. Aqui, você encontrará uma variedade de opções veganas, desde alimentos orgânicos e sem agrotóxicos, até roupas, cosméticos e outros itens de bem-estar, tudo feito com carinho e responsabilidade.</p>
-
-            <p>Acreditamos que apoiar esses produtores locais não é apenas uma forma de consumir de maneira consciente, mas também de fortalecer nossa comunidade e construir um futuro mais sustentável para todos.</p>
+        <div class="mdl:basis-2/3 flex flex-col gap-2 text-lg">
+            <h2 class="text-2xl font-semibold text-center">Seja Bem-Vindo a seu shopping virtual</h2>
+            <p>Pensado e estruturado para você que deseja consumir produtos frescos, orgânicos, em benefício de uma vida mais saudável e adequada.</p>
+            <p>Nosso propósito é conectar pessoas que compartilham dos mesmos princípios: respeito à saúde, aos animais e ao meio ambiente. Queremos ser o elo entre consumidores conscientes e fornecedores comprometidos com um estilo de vida sustentável.</p>
+            <p>Você encontrará uma ampla seleção de produtos orgânicos, desde alimentos, vestuários até cosméticos e outros itens essenciais para o seu bem-estar. Cada produto é cuidadosamente selecionado para garantir qualidade e responsabilidade ambiental.</p>
+            <p>Acreditamos na tecnologia como uma ferramenta eficiente e ágil para fortalecer nossa comunidade. Com isso, apoiamos produtores locais, oferecendo a eles mais autonomia e protagonismo no processo de venda. Juntos, clientes e fornecedores, estamos construindo um futuro mais sustentável e saudável para todos.</p>
         </div>
     </div>
 </section>
@@ -37,7 +37,7 @@
 
     <section id="valores" class="pb-8 ">
         <h2 class=" text-center text-2xl font-bold pb-4">Valores e Missão</h2>
-        <div class="grid grid-cols-3 gap-4 p-4">
+        <div class="grid grid-cols-1 mdl:grid-cols-3 gap-4 p-4">
 
             <div class="flip-card">
                 <div class="flip-card-inner">
@@ -46,7 +46,7 @@
                         <p class="title">Valores</p>
                     </div>
                     <div class="flip-card-back">
-                        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Magni quibusdam molestiae nobis. Modi, velit? Sapiente aspernatur magnam, totam, qui, alias ab harum fugiat ipsum iste dolorem omnis unde maiores nam.</p>
+                        <p>Nossos valores refletem o compromisso com a saúde, o meio ambiente e a valorização da produção local. Acreditamos no respeito à natureza, no consumo consciente e na responsabilidade social. Cada produto que oferecemos é cuidadosamente selecionado, garantindo a qualidade e o respeito aos ciclos naturais. Nosso objetivo é fortalecer a relação entre produtores e consumidores, sempre buscando um impacto positivo na vida das pessoas e no planeta.</p>
                     </div>
                 </div>
             </div>
@@ -59,7 +59,7 @@
 
                     </div>
                     <div class="flip-card-back">
-                        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Magni quibusdam molestiae nobis. Modi, velit? Sapiente aspernatur magnam, totam, qui, alias ab harum fugiat ipsum iste dolorem omnis unde maiores nam.</p>
+                        <p>Nossa missão é conectar consumidores que buscam um estilo de vida saudável a pequenos produtores locais, promovendo a sustentabilidade e o desenvolvimento econômico da comunidade. Através de tecnologia inovadora e acessível, queremos facilitar o acesso a produtos frescos e de qualidade, enquanto apoiamos os comerciantes que fazem a diferença no dia a dia de suas regiões. Queremos ser a ponte entre quem produz com carinho e quem consome com consciência.</p>
                     </div>
                 </div>
             </div>
@@ -70,65 +70,65 @@
                         <p class="title">Comunidade</p>
                     </div>
                     <div class="flip-card-back">
-                        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Magni quibusdam molestiae nobis. Modi, velit? Sapiente aspernatur magnam, totam, qui, alias ab harum fugiat ipsum iste dolorem omnis unde maiores nam.</p>
+                        <p>Acreditamos que nossa força vem da comunidade. Por isso, promovemos um espaço de troca e colaboração entre consumidores e vendedores, onde todos se beneficiam. Valorizamos o comércio local e incentivamos práticas que fortaleçam o vínculo entre as pessoas e suas raízes. Nosso marketplace é mais que uma plataforma de compras: é um movimento que une saúde, sustentabilidade e o desejo de construir um futuro melhor, juntos.</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-
-    <section id="categorias" class="pb-8">
-        <h2 class=" text-center text-2xl font-bold pb-8">Nossas categorias</h2>
-        <p-carousel [value]="category" [numVisible]="4" [numScroll]="1" [circular]="true" autoplayInterval="4000">
-            <ng-template let-category pTemplate="item">
-                <div class="border-1 surface-border border-round m-2 p-3">
-
-                    <div class="mb-3 text-2xl font-medium">
-                        {{ category.name }}
-                    </div>
-
-                </div>
-            </ng-template>
-        </p-carousel>
-    </section>
-
-    <section id="video" class=" flex flex-col pb-8 gap-4">
-        <h2 class=" text-center text-2xl font-bold">VIDEO INSPIRADOR</h2>
-        <div class="m-auto video-container">
-            <iframe width="560" height="315" src="https://www.youtube.com/embed/_Zel-Eapb9Y" frameborder="0" allowfullscreen="" __idm_id__="14401537"></iframe>
-        </div>
-    </section>
-
-    <section id="Produtos" class="pb-8">
-        <div class="flex items-center justify-between px-4 sm:px-6 lg:px-4">
-            <h2 class="text-2xl font-bold tracking-tight">Produtos em Destaque</h2>
-            <a href="#" class="hidden text-sm font-semibold text-teal-600 hover:text-cyan-500 sm:block">
-                Veja todos
-                <span aria-hidden="true"> &rarr;</span>
-            </a>
-        </div>
-        <p-carousel [value]="products" [numVisible]="5" [numScroll]="1" [circular]="false" autoplayInterval="3000">
-            <ng-template let-products pTemplate="item">
-                <div class="border-1 surface-border border-round m-2 p-3">
-                    <a href='produto/{{products.slug}}'>
-                        <div class="mb-3">
-                            <div class="relative mx-auto">
-                                <img src="https://i.ibb.co/KqdgGY4/cosmetic-packaging-mockup-1150-40280.webp" [alt]="products.name" class="w-full border-round max-w-60" />
-                                <!-- [src]="products.image"  -->
-                                <p-tag [value]="" [severity]="" class="absolute" [ngStyle]="{ 'left.px': 5, 'top.px': 5 }" />
-                            </div>
-                        </div>
-                        <div class="mb-3 font-medium">
-                            {{ products.price | currency:'BRL':'symbol' }}
-                        </div>
-                    </a>
-                    <div class="flex justify-content-between align-items-center">
-                        <div class="mt-0 font-semibold text-xl">
-                            {{ products.name }}
-                        </div>
-                    </div>
-                </div>
-            </ng-template>
-        </p-carousel>
-    </section>
 </div>
+
+<section id="categorias" class="pb-8">
+    <h2 class=" text-center text-2xl font-bold pb-8">Nossas categorias</h2>
+    <p-carousel [value]="category" [numVisible]="6" [numScroll]="1" [circular]="true" autoplayInterval="3000" [responsiveOptions]="responsiveOptions">
+        <ng-template let-category pTemplate="item">
+            <div class="border-1 surface-border border-round m-2 p-3">
+
+                <div class="mb-3 text-2xl font-medium">
+                    {{ category.name }}
+                </div>
+
+            </div>
+        </ng-template>
+    </p-carousel>
+</section>
+
+<section id="video" class=" flex flex-col pb-8 gap-8">
+    <h2 class=" text-center text-2xl font-bold">VIDEO INSPIRADOR</h2>
+    <div class="m-auto video-container shadow-tesouros">
+        <iframe width="375" height="315" src="https://www.youtube.com/embed/_Zel-Eapb9Y" frameborder="0" allowfullscreen="" __idm_id__="14401537" class="mdl:w-[560px] mdl:h-[315px]"></iframe>
+    </div>
+</section>
+
+<section id="Produtos" class="pb-8">
+    <div class="flex items-center justify-between px-4 sm:px-6 lg:px-4 py-8">
+        <h2 class="text-2xl font-bold tracking-tight">Produtos em Destaque</h2>
+        <a href="/produtos" class="hidden text-sm font-semibold text-teal-600 hover:text-cyan-500 sm:block">
+            Veja todos
+            <span aria-hidden="true"> &rarr;</span>
+        </a>
+    </div>
+    <p-carousel [value]="products" [numVisible]="5" [numScroll]="1" [circular]="false" autoplayInterval="4000" [responsiveOptions]="responsiveOptions" class="items-center">
+        <ng-template let-products pTemplate="item">
+            <div class="border-1 surface-border border-round m-2 p-3">
+                <a href='produto/{{products.slug}}'>
+                    <div class="mb-3">
+                        <div class="relative mx-auto">
+                            <img [src]="products.image" [alt]="products.name" class="w-full border-round max-w-60 max-h-60" />
+                            <!-- [src]="products.image"  -->
+                            <p-tag [value]="" [severity]="" class="absolute" [ngStyle]="{ 'left.px': 5, 'top.px': 5 }" />
+                        </div>
+                    </div>
+                    <div class="mb-3 font-medium">
+                        {{ products.price | currency:'BRL':'symbol' }}
+                    </div>
+                </a>
+                <div class="flex justify-content-between align-items-center">
+                    <div class="mt-0 font-semibold text-xl">
+                        {{ products.name }}
+                    </div>
+                </div>
+            </div>
+        </ng-template>
+    </p-carousel>
+</section>

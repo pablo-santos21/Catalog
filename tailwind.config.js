@@ -33,6 +33,13 @@ module.exports = {
       },
       boxShadow: {
         shadowOne: "2px 2px 40px #0b3d0b, -2px -2px 40px #064e3b",
+        origamid: "0 4px 16px 4px rgba(0,0,0,.3)",
+        sobre: "0 4px 40px 12px rgba(255,255,255,.3)",
+        tesouros: "0 4px 50px 16px rgba(255,255,255,.3)",
+        eventos: "0 4px 30px 10px rgba(255,255,255,.3)",
+      },
+      backgroundImage: {
+        produtos: "url('/assets/background/produtos.png')",
       },
     },
     container: {

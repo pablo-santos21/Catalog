@@ -2,7 +2,7 @@
     '767px': { width: '100%', right: '0', left: '20' },
  }" />
 
-<div class="bg-fundoForm shadow-2xl">
+<div class="bg-fundoForm shadow-origamid">
     <div class="p-4">
         <div class="bg-red p-4 rounded-md">
             <div class="flex-auto px-4 lg:px-10 py-10 pt-0">
@@ -33,7 +33,7 @@
                                 <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2" for="firstName">
                                     Seu nome
                                 </label>
-                                <input type="text" [(ngModel)]="updateUserDto.nome" class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" name="firstName" id="firstName" disabled />
+                                <input type="text" [(ngModel)]="updateUserDto.userName" class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" name="firstName" id="firstName" disabled />
                             </div>
                         </div>
 
@@ -67,13 +67,13 @@
 
                     <!-- Contact Information Section -->
                     <h6 class="text-blueGray-400 text-sm mt-3 mb-6 font-bold uppercase">
-                        Contact Information
+                        Informações de contato
                     </h6>
                     <div class="flex flex-wrap">
                         <div class="w-full lg:w-6/12 px-4">
                             <div class="relative w-full mb-3">
                                 <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2" for="addressStreet">
-                                    Address
+                                    Rua
                                 </label>
                                 <input type="text" [(ngModel)]="updateUserDto.addressStreet" class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" name="addressStreet" id="addressStreet" />
                             </div>
@@ -89,7 +89,7 @@
                         <div class="w-full lg:w-4/12 px-4">
                             <div class="relative w-full mb-3">
                                 <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2" for="addressComplement">
-                                    Complemento
+                                    Bairro
                                 </label>
                                 <input type="text" [(ngModel)]="updateUserDto.addressComplement" class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" name="addressComplement" id="addressComplement" />
                             </div>
@@ -98,7 +98,7 @@
                         <div class="w-full lg:w-4/12 px-4">
                             <div class="relative w-full mb-3">
                                 <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2" for="addressCity">
-                                    City
+                                    Cidade
                                 </label>
                                 <input type="text" [(ngModel)]="updateUserDto.addressCity" class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" name="addressCity" id="addressCity" />
                             </div>
@@ -107,7 +107,7 @@
                         <div class="w-full lg:w-4/12 px-4">
                             <div class="relative w-full mb-3">
                                 <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2" for="addressState">
-                                    State
+                                    Estado
                                 </label>
                                 <input type="text" [(ngModel)]="updateUserDto.addressState" class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" name="addressState" id="addressState" />
                             </div>
@@ -116,7 +116,7 @@
                         <div class="w-full lg:w-4/12 px-4">
                             <div class="relative w-full mb-3">
                                 <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2" for="addressZipCode">
-                                    Postal Code
+                                    CEP
                                 </label>
                                 <input type="text" [(ngModel)]="updateUserDto.addressZipCode" class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" name="addressZipCode" id="addressZipCode" />
                             </div>
