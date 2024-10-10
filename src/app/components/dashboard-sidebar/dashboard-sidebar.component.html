@@ -7,7 +7,7 @@
     </a>
 
     <ul class="mt-4">
-        <div *ngIf="userRole === 'Customer' || userRole === 'Admin' || userRole ==='Seller' || userRole=== 'SuperUser'">
+        <div *ngIf="userRole === 'Cliente' || userRole === 'Admin' || userRole ==='Vendedor' || userRole=== 'Moderador'">
             <span class="text-gray-400 font-bold">USUÁRIO</span>
             <li class="mb-1 group pb-2 border-b border-b-gray-400">
                 <a routerLink="/perfil" class="header-style ">
@@ -26,7 +26,7 @@
                     <i class='pi pi-shop mr-3'></i>
                     <span class="text-sm">Torne-se Vendedor(a)</span>
                 </a> -->
-                <div *ngIf="userRole === 'SuperUser' || userRole === 'Admin'">
+                <div *ngIf="userRole === 'Moderador' || userRole === 'Admin'">
                     <a routerLink="/tornar-vendedor" class="header-style ">
                         <i class='pi pi-shop mr-3'></i>
                         <span class="text-sm">Tornar Vendedor(a)</span>
@@ -35,7 +35,7 @@
             </li>
         </div>
 
-        <div *ngIf="userRole !== 'Customer'">
+        <div *ngIf="userRole !== 'Cliente'">
             <span class="text-gray-400 font-bold">PRODUTOS</span>
             <li class="mb-1 group pb-2 border-b border-b-gray-400">
                 <a routerLink="/listar-produtos" class="header-style ">
@@ -54,7 +54,7 @@
         </div>
 
 
-        <div *ngIf="userRole === 'Admin' || userRole=== 'SuperUser'">
+        <div *ngIf="userRole === 'Admin' || userRole=== 'Moderador'">
             <span class="text-gray-400 font-bold">EVENTOS</span>
             <li class="mb-1 group pb-2 border-b border-b-gray-400">
                 <a routerLink="/listar-eventos" class="header-style ">
@@ -73,7 +73,7 @@
             </li>
         </div>
 
-        <div *ngIf="userRole === 'Customer' || userRole === 'Admin' || userRole ==='Seller' || userRole=== 'SuperUser'">
+        <div *ngIf="userRole === 'Cliente' || userRole === 'Admin' || userRole ==='Vendedor' || userRole=== 'Moderador'">
             <span class="text-gray-400 font-bold">SISTEMA</span>
             <li class="mb-1 group">
                 <a (click)="logout()" class="header-style cursor-pointer">

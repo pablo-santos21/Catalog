@@ -21,7 +21,7 @@ import { CommonModule } from '@angular/common';
 })
 export class TornarVendedorComponent implements OnInit {
   changeRoleForm: FormGroup = this.fb.group({});
-  availableRoles: string[] = ['Admin', 'Seller', 'Customer', 'SuperUser'];
+  availableRoles: string[] = ['Admin', 'Vendedor', 'Cliente', 'Moderador'];
 
   constructor(
     private fb: FormBuilder,
